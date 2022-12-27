@@ -6,4 +6,10 @@
   body {
     @apply bg-neutral-900;
   }
+  html::-webkit-scrollbar {
+    @apply w-2 bg-neutral-900;
+  }
+  html::-webkit-scrollbar-thumb {
+    @apply w-2 bg-black;
+  }
 }
