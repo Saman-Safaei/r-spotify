@@ -6,6 +6,7 @@ module.exports = {
       spacing: {
         'lg-sidebar': '16rem',
         sidebar: '4rem',
+        navbar: '4.2rem'
       },
     },
   },
