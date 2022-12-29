@@ -7,7 +7,7 @@ import SidebarLink from './SidebarLink'
 
 function Sidebar() {
   return (
-    <nav className='flex flex-col items-stretch fixed bottom-0 lg:top-0 left-0 right-0 lg:right-auto h-sidebar lg:h-auto lg:w-lg-sidebar bg-black text-gray-100'>
+    <nav className='flex flex-col items-stretch fixed bottom-0 lg:top-0 left-0 right-0 lg:right-auto h-sidebar lg:h-auto lg:w-lg-sidebar bg-black text-gray-100 z-50'>
       <div className='hidden lg:block pb-3 pt-8 px-6'>
         <svg viewBox='0 0 1134 340' class='w-7/12'>
           <title>Spotify</title>
