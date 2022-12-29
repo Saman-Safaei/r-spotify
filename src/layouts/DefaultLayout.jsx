@@ -8,7 +8,7 @@ function DefaultLayout() {
     <Fragment>
       <Navbar />
       <Sidebar />
-      <main className='pb-sidebar lg:pb-0 mt-navbar lg:ml-lg-sidebar text-gray-200'>
+      <main className='pb-sidebar lg:pb-0 mt-navbar lg:ml-lg-sidebar max-w-7xl text-gray-200'>
         <Outlet />
       </main>
     </Fragment>
