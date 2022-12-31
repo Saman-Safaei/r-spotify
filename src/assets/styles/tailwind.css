@@ -4,12 +4,21 @@
 
 @layer base {
   body {
-    @apply bg-neutral-900;
+    @apply bg-neutral-900 text-gray-200;
   }
   html::-webkit-scrollbar {
     @apply w-2 bg-neutral-900;
   }
   html::-webkit-scrollbar-thumb {
+    @apply w-2 bg-black;
+  }
+}
+
+@layer utilities {
+  .c-scroll::-webkit-scrollbar {
+    @apply w-2 p-4 bg-neutral-900;
+  }
+  .c-scroll::-webkit-scrollbar-thumb {
     @apply w-2 bg-black;
   }
 }
