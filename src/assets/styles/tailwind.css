@@ -12,6 +12,12 @@
   html::-webkit-scrollbar-thumb {
     @apply w-2 bg-black;
   }
+  input[type='password'],
+  input[type='text'],
+  input[type='email'] {
+    background: transparent;
+    display: block;
+  }
 }
 
 @layer utilities {
