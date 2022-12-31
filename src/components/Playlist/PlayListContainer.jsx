@@ -4,7 +4,7 @@ export default function PlayListContainer({ children, title = '', href = '' }) {
   return (
     <div>
       <div className='flex flex-row justify-between items-baseline mb-4'>
-        <h3 className='font-bold text-2xl'>{title}</h3>
+        <h3 className='font-bold text-2xl text-white'>{title}</h3>
         <Link
           to={href}
           className='uppercase text-xs text-gray-300 hover:underline tracking-wider'>
