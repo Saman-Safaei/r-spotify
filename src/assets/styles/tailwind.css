@@ -18,6 +18,15 @@
     background: transparent;
     display: block;
   }
+
+  *:focus,
+  *:focus-visible,
+  *:focus-within {
+    outline: 0 none;
+  }
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
 @layer utilities {
