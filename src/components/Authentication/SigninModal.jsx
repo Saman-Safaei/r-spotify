@@ -13,14 +13,14 @@ function SigninModal({ show, onHide = () => {} }) {
         Sign in to your account to start listening.
       </h3>
       <form className='flex flex-col items-stretch gap-2'>
-        <div className='border-solid border border-gray-300/50 focus-within:border-gray-300 rounded-md transition-colors duration-300'>
+        <div className='bg-neutral-700/50 focus-within:bg-neutral-700/70 rounded-md transition-colors duration-300'>
           <input
             type='text'
             placeholder='Username'
             className='w-full px-3 py-3'
           />
         </div>
-        <div className='mb-2 border-solid border border-gray-300/50 focus-within:border-gray-300 rounded-md transition-colors duration-300'>
+        <div className='mb-2 bg-neutral-700/50 focus-within:bg-neutral-700/70 rounded-md transition-colors duration-300'>
           <input
             type='password'
             placeholder='Password'
