@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import DefaultLayout from '../layouts/DefaultLayout'
+import ErrorPage from '../pages/ErrorPage'
 import Home from '../pages/Home'
 import Search from '../pages/Search'
 
@@ -7,6 +8,7 @@ import Search from '../pages/Search'
 export const routes = [
   {
     element: <DefaultLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: '/',
