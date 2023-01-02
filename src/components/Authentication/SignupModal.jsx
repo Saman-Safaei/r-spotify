@@ -3,7 +3,7 @@ import Modal from '../UI/Modal'
 function SignupModal({ show, onHide = () => {} }) {
   return (
     <Modal show={show} onHide={onHide} modalClass='py-6' backdropClass='px-4'>
-      <svg viewBox='0 0 1134 340' class='w-8/12 mx-auto mb-4'>
+      <svg viewBox='0 0 1134 340' className='w-8/12 mx-auto mb-4'>
         <title>Spotify</title>
         <path
           fill='currentColor'
