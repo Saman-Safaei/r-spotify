@@ -12,7 +12,7 @@ export default function PlayListItem({
     <div className='relative group flex flex-col items-stretch gap-4 p-4 rounded-lg bg-neutral-800/50 hover:bg-neutral-800 transition-colors duration-300'>
       <div className='relative w-full'>
         <img src={imgSrc} alt={imgAlt} className='w-full rounded-md' />
-        <button className='h-12 w-12 p-3 cursor-default z-10 rounded-full bg-green-500 absolute bottom-2 opacity-0 group-hover:bottom-4 group-hover:opacity-100 right-4 transition-all duration-300'>
+        <button className='h-12 w-12 p-3 cursor-default z-10 rounded-full bg-green-500 absolute bottom-4 md:bottom-2 md:opacity-0 md:group-hover:bottom-4 md:group-hover:opacity-100 right-4 transition-all duration-300'>
           <PlayIcon className='w-full h-full text-black' />
         </button>
       </div>
