@@ -8,6 +8,11 @@ function SignupModal({ show, onHide = () => {} }) {
   const { signin } = useSignin()
   const { err, pending, signup } = useSignup(signin)
 
+  const backgroundBg = pending
+    ? 'bg-gradient-to-r from-slate-500 via-slate-700 to-slate-500 animate-bg'
+    : 'bg-green-500 hover:bg-green-600'
+  const buttonTxt = pending ? 'Please Wait ...' : 'Sign up'
+
   return (
     <Modal show={show} onHide={onHide} modalClass='py-6' backdropClass='px-4'>
       <svg viewBox='0 0 1134 340' className='w-8/12 mx-auto mb-4'>
@@ -89,8 +94,8 @@ function SignupModal({ show, onHide = () => {} }) {
             <button
               type='submit'
               disabled={pending}
-              className='w-full bg-green-500 hover:bg-green-600 py-3 rounded-md transition-colors duration-300'>
-              Sign up
+              className={`w-full ${backgroundBg} py-3 rounded-md transition-colors duration-300`}>
+              {buttonTxt}
             </button>
           </div>
         </Form>

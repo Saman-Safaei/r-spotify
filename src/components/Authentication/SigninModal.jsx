@@ -5,6 +5,10 @@ import Modal from '../UI/Modal'
 
 function SigninModal({ show, onHide = () => {} }) {
   const { pending, signin, err } = useSignin()
+  const backgroundBg = pending
+    ? 'bg-gradient-to-r from-slate-500 via-slate-700 to-slate-500 animate-bg'
+    : 'bg-green-500 hover:bg-green-600'
+  const buttonTxt = pending ? 'Please Wait ...' : 'Sign in'
 
   return (
     <Modal show={show} onHide={onHide} modalClass='py-6' backdropClass='px-4'>
@@ -55,10 +59,10 @@ function SigninModal({ show, onHide = () => {} }) {
               </p>
             )}
             <button
-              disabled={pending}
               type='submit'
-              className='w-full bg-green-500 hover:bg-green-600 py-3 rounded-md transition-colors duration-300'>
-              Sign in
+              disabled={pending}
+              className={`w-full ${backgroundBg} py-3 rounded-md transition-colors duration-300`}>
+              {buttonTxt}
             </button>
           </div>
         </Form>
