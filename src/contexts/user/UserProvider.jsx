@@ -37,6 +37,8 @@ export default function UserProvider({ children }) {
   const logoutUserHandler = () => {
     localStorage.removeItem('username')
     localStorage.removeItem('token')
+
+    userDispatch({ type: actionTypes.LOGOUT_USER })
   }
 
   return (
