@@ -1,6 +1,11 @@
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import useSignup from '../../hooks/signup'
 import Modal from '../UI/Modal'
+import * as signupForm from '../../forms/signup'
 
 function SignupModal({ show, onHide = () => {} }) {
+  const { err, pending, signup } = useSignup()
+
   return (
     <Modal show={show} onHide={onHide} modalClass='py-6' backdropClass='px-4'>
       <svg viewBox='0 0 1134 340' className='w-8/12 mx-auto mb-4'>
@@ -12,43 +17,82 @@ function SignupModal({ show, onHide = () => {} }) {
       <h3 className='text-xl text-center font-bold text-gray-300 mb-6'>
         Sign up for free to start listening.
       </h3>
-      <form className='flex flex-col items-stretch gap-2'>
-        <div className='bg-neutral-700/50 focus-within:bg-neutral-700/70 rounded-md transition-colors duration-300'>
-          <input
-            type='text'
-            placeholder='Username'
-            className='w-full px-3 py-3'
-          />
-        </div>
-        <div className='bg-neutral-700/50 focus-within:bg-neutral-700/70 rounded-md transition-colors duration-300'>
-          <input
-            type='email'
-            placeholder='Email'
-            className='w-full px-3 py-3'
-          />
-        </div>
-        <div className='mb-2 grid grid-cols-1 md:grid-cols-2 gap-2'>
-          <div className='bg-neutral-700/50 focus-within:bg-neutral-700/70 rounded-md transition-colors duration-300'>
-            <input
-              type='password'
-              placeholder='Password'
-              className='w-full px-3 py-3'
-            />
+      <Formik
+        initialValues={signupForm.defaultValues}
+        onSubmit={signup}
+        validationSchema={signupForm.validationSchema}>
+        <Form noValidate className='flex flex-col items-stretch gap-2'>
+          <div>
+            <div className='bg-neutral-700/50 focus-within:bg-neutral-700/70 rounded-md transition-colors duration-300'>
+              <Field
+                name='username'
+                type='text'
+                placeholder='Username'
+                className='w-full px-3 py-3'
+              />
+            </div>
+            <p className='px-3 text-red-500 leading-7'>
+              <ErrorMessage name='username' />
+            </p>
           </div>
-          <div className='bg-neutral-700/50 focus-within:bg-neutral-700/70 rounded-md transition-colors duration-300'>
-            <input
-              type='password'
-              placeholder='Confirm Password'
-              className='w-full px-3 py-3'
-            />
+
+          <div>
+            <div className='bg-neutral-700/50 focus-within:bg-neutral-700/70 rounded-md transition-colors duration-300'>
+              <Field
+                name='email'
+                type='email'
+                placeholder='Email'
+                className='w-full px-3 py-3'
+              />
+            </div>
+            <p className='px-3 text-red-500 leading-7'>
+              <ErrorMessage name='email' />
+            </p>
           </div>
-        </div>
-        <button
-          type='submit'
-          className='w-full bg-green-500 hover:bg-green-600 py-3 rounded-md transition-colors duration-300'>
-          Sign up
-        </button>
-      </form>
+
+          <div className='mb-2 grid grid-cols-1 md:grid-cols-2 gap-2'>
+            <div>
+              <div className='bg-neutral-700/50 focus-within:bg-neutral-700/70 rounded-md transition-colors duration-300'>
+                <Field
+                  name='password'
+                  type='password'
+                  placeholder='Password'
+                  className='w-full px-3 py-3'
+                />
+              </div>
+              <p className='px-3 text-red-500 leading-7'>
+                <ErrorMessage name='password' />
+              </p>
+            </div>
+            <div>
+              <div className='bg-neutral-700/50 focus-within:bg-neutral-700/70 rounded-md transition-colors duration-300'>
+                <Field
+                  name='confirmPassword'
+                  type='password'
+                  placeholder='Confirm Password'
+                  className='w-full px-3 py-3'
+                />
+              </div>
+              <p className='px-3 text-red-500 leading-7'>
+                <ErrorMessage name='confirmPassword' />
+              </p>
+            </div>
+          </div>
+          <div className='flex flex-col gap-2 items-stretch'>
+            {err && (
+              <p className='bg-red-500/20 px-3 py-3 rounded-md text-center'>
+                {err.message}
+              </p>
+            )}
+            <button
+              type='submit'
+              disabled={pending}
+              className='w-full bg-green-500 hover:bg-green-600 py-3 rounded-md transition-colors duration-300'>
+              Sign up
+            </button>
+          </div>
+        </Form>
+      </Formik>
     </Modal>
   )
 }
