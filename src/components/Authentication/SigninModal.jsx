@@ -1,6 +1,11 @@
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { defaultValues, validationSchema } from '../../forms/signin'
+import useSignin from '../../hooks/signin'
 import Modal from '../UI/Modal'
 
 function SigninModal({ show, onHide = () => {} }) {
+  const { pending, signin, err } = useSignin()
+
   return (
     <Modal show={show} onHide={onHide} modalClass='py-6' backdropClass='px-4'>
       <svg viewBox='0 0 1134 340' className='w-8/12 mx-auto mb-4'>
@@ -12,27 +17,52 @@ function SigninModal({ show, onHide = () => {} }) {
       <h3 className='text-xl text-center font-bold text-gray-300 mb-6'>
         Sign in to your account to start listening.
       </h3>
-      <form className='flex flex-col items-stretch gap-2'>
-        <div className='bg-neutral-700/50 focus-within:bg-neutral-700/70 rounded-md transition-colors duration-300'>
-          <input
-            type='text'
-            placeholder='Username'
-            className='w-full px-3 py-3'
-          />
-        </div>
-        <div className='mb-2 bg-neutral-700/50 focus-within:bg-neutral-700/70 rounded-md transition-colors duration-300'>
-          <input
-            type='password'
-            placeholder='Password'
-            className='w-full px-3 py-3'
-          />
-        </div>
-        <button
-          type='submit'
-          className='w-full bg-green-500 hover:bg-green-600 py-3 rounded-md transition-colors duration-300'>
-          Sign in
-        </button>
-      </form>
+      <Formik
+        initialValues={defaultValues}
+        validationSchema={validationSchema}
+        onSubmit={signin}>
+        <Form noValidate className='flex flex-col items-stretch gap-2'>
+          <div>
+            <div className='bg-neutral-700/50 focus-within:bg-neutral-700/70 rounded-md transition-colors duration-300'>
+              <Field
+                name='username'
+                type='text'
+                placeholder='Username'
+                className='w-full px-3 py-3'
+              />
+            </div>
+            <p className='px-3 text-red-500 leading-7'>
+              <ErrorMessage name='username' />
+            </p>
+          </div>
+          <div>
+            <div className='mb-2 bg-neutral-700/50 focus-within:bg-neutral-700/70 rounded-md transition-colors duration-300'>
+              <Field
+                name='password'
+                type='password'
+                placeholder='Password'
+                className='w-full px-3 py-3'
+              />
+            </div>
+            <p className='px-3 text-red-500 leading-7'>
+              <ErrorMessage name='password' />
+            </p>
+          </div>
+          <div className='flex flex-col gap-2 items-stretch'>
+            {err && (
+              <p className='bg-red-500/20 px-3 py-3 rounded-md text-center'>
+                {err.message}
+              </p>
+            )}
+            <button
+              disabled={pending}
+              type='submit'
+              className='w-full bg-green-500 hover:bg-green-600 py-3 rounded-md transition-colors duration-300'>
+              Sign in
+            </button>
+          </div>
+        </Form>
+      </Formik>
     </Modal>
   )
 }
