@@ -2,9 +2,11 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import useSignup from '../../hooks/signup'
 import Modal from '../UI/Modal'
 import * as signupForm from '../../forms/signup'
+import useSignin from '../../hooks/signin'
 
 function SignupModal({ show, onHide = () => {} }) {
-  const { err, pending, signup } = useSignup()
+  const { signin } = useSignin()
+  const { err, pending, signup } = useSignup(signin)
 
   return (
     <Modal show={show} onHide={onHide} modalClass='py-6' backdropClass='px-4'>
