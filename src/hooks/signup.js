@@ -24,7 +24,7 @@ export default function useSignup(
           email,
         }),
       })
-      console.log(response)
+
       if (response.ok) {
         await onSignup({ username, password })
         setPending(false)
