@@ -12,3 +12,17 @@
   opacity: 0;
   transition: opacity 300ms;
 }
+
+@keyframes bga {
+  0% {
+    background-position-x: 0%;
+  }
+  100% {
+    background-position-x: 200%;
+  }
+}
+
+.animate-bg {
+  background-size: 200%;
+  animation: bga 1s infinite linear;
+}
