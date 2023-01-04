@@ -25,11 +25,16 @@ function Navbar() {
             </button>
           </Fragment>
         ) : (
-          <Link
-            to='#'
-            className='rounded-full py-3 px-6 bg-white text-gray-900'>
-            {userCtx.username}
-          </Link>
+          <Fragment>
+            <button
+              className='rounded-full py-3 px-6 text-gray-300'
+              onClick={userCtx.logoutUser}>Logout</button>
+            <Link
+              to='#'
+              className='rounded-full py-3 px-6 bg-white text-gray-900'>
+              {userCtx.username}
+            </Link>
+          </Fragment>
         )}
       </div>
     </div>
