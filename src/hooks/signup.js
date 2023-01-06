@@ -1,51 +1,37 @@
-import { useState, useContext } from 'react'
-import uiSlice from '../contexts/ui/ui-slice'
-import { fetcher } from '../api'
+import { useMutation } from '@tanstack/react-query'
+import { signup } from '../api/users'
+import useSignin from './signin'
 
-export default function useSignup(
-  onSignup = async ({ username, passowrd }) => {}
-) {
-  const [err, setErr] = useState()
-  const [pending, setPending] = useState(false)
+export default function useSignup() {
+  const { error, signin, isError, isLoading } = useSignin()
 
-  const uiContext = useContext(uiSlice)
-
-  const signup = async ({ username, password, email }) => {
-    setPending(true)
-    setErr(null)
-
-    try {
-      const response = await fetcher('/Account/signup', {
-        headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-        method: 'POST',
-        body: JSON.stringify({
-          username,
-          password,
-          email,
-        }),
-      })
-
-      if (response.ok) {
-        await onSignup({ username, password })
-        setPending(false)
-        uiContext.hideAll()
-      } else {
-        const status = response.status
-        const message =
-          status === 409
-            ? 'This email or username is already exists.'
-            : status === 400
-            ? 'The email or password is invalid.'
-            : 'An unknown error occured'
-
-        setErr({ status: response.status, message: message })
-        setPending(false)
-      }
-    } catch (catched) {
-      setErr({ status: 400, message: 'An Unknown Error Occurred.' })
-      setPending(false)
-    }
+  const successHandler = variables => {
+    signin(variables)
   }
 
-  return { pending, signup, err }
+  const { mutate, ...mutationData } = useMutation({
+    mutationFn: signup,
+  })
+
+  const signupHandler = variables => {
+    mutate(variables, {
+      onSuccess: () => successHandler(variables),
+    })
+  }
+
+  const errorMessage =
+    mutationData?.error?.response?.status === 409
+      ? 'The Username or email are already exists.'
+      : mutationData?.error?.message
+
+      console.log(mutationData?.error?.status);
+
+  return {
+    signup: signupHandler,
+    ...mutationData,
+    error: mutationData.error || error,
+    isError: mutationData.isError || isError,
+    isLoading: mutationData.isLoading || isLoading,
+    errorMessage
+  }
 }
