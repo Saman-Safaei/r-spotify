@@ -8,15 +8,18 @@ export default function useSignin() {
   const userCtx = useContext(userSlice)
   const uiCtx = useContext(uiSlice)
 
-  const onSuccess = data => {
+  const successHandler = data => {
     userCtx.setUser(data?.username, data?.token)
     uiCtx.hideAll()
   }
 
   const { mutate, ...mutationData } = useMutation({
     mutationFn: signin,
-    onSuccess: onSuccess,
   })
 
-  return { signin: mutate, ...mutationData }
+  const signinHandler = variables => {
+    mutate(variables, { onSuccess: successHandler })
+  }
+
+  return { signin: signinHandler, ...mutationData }
 }
