@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  body {
+  body,
+  html,
+  html::-webkit-scrollbar-corner {
     @apply bg-neutral-900 text-gray-200;
   }
   html::-webkit-scrollbar {
