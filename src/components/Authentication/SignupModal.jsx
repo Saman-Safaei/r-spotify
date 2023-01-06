@@ -2,16 +2,14 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import useSignup from '../../hooks/signup'
 import Modal from '../UI/Modal'
 import * as signupForm from '../../forms/signup'
-import useSignin from '../../hooks/signin'
 
 function SignupModal({ show, onHide = () => {} }) {
-  const { signin } = useSignin()
-  const { err, pending, signup } = useSignup(signin)
+  const { error, isLoading, signup, errorMessage } = useSignup()
 
-  const backgroundBg = pending
+  const backgroundBg = isLoading
     ? 'bg-gradient-to-r from-slate-500 via-slate-700 to-slate-500 animate-bg'
     : 'bg-green-500 hover:bg-green-600'
-  const buttonTxt = pending ? 'Please Wait ...' : 'Sign up'
+  const buttonTxt = isLoading ? 'Please Wait ...' : 'Sign up'
 
   return (
     <Modal show={show} onHide={onHide} modalClass='py-6' backdropClass='px-4'>
@@ -86,14 +84,14 @@ function SignupModal({ show, onHide = () => {} }) {
             </div>
           </div>
           <div className='flex flex-col gap-2 items-stretch'>
-            {err && (
+            {error && (
               <p className='bg-red-500/20 px-3 py-3 rounded-md text-center'>
-                {err.message}
+                {errorMessage}
               </p>
             )}
             <button
               type='submit'
-              disabled={pending}
+              disabled={isLoading}
               className={`w-full ${backgroundBg} py-3 rounded-md transition-colors duration-300`}>
               {buttonTxt}
             </button>
