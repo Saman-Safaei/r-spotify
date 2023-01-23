@@ -46,9 +46,10 @@ function Home() {
         <PlayListItem
           title='All Songs'
           description='Browse all songs in RSpotify...'
-          href='/search'
+          href='/genre/all'
           imgSrc='/images/deepfocus.jpg'
           imgAlt='all'
+          playable={false}
         />
       </PlayListContainer>
     </div>
