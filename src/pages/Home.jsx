@@ -44,39 +44,11 @@ function Home() {
 
       <PlayListContainer title='Another Songs' href='/category/2341'>
         <PlayListItem
-          title='Deep Focus'
-          description='Keep calm and focus with ambient and post-rock ...'
-          href='/playlist/65436'
+          title='All Songs'
+          description='Browse all songs in RSpotify...'
+          href='/search'
           imgSrc='/images/deepfocus.jpg'
-          imgAlt='deep-focus'
-        />
-        <PlayListItem
-          title='Deep Focus'
-          description='Keep calm and focus with ambient and post-rock ...'
-          href='/playlist/65436'
-          imgSrc='/images/deepfocus.jpg'
-          imgAlt='deep-focus'
-        />
-        <PlayListItem
-          title='Deep Focus'
-          description='Keep calm and focus with ambient and post-rock ...'
-          href='/playlist/65436'
-          imgSrc='/images/deepfocus.jpg'
-          imgAlt='deep-focus'
-        />
-        <PlayListItem
-          title='Deep Focus'
-          description='Keep calm and focus with ambient and post-rock ...'
-          href='/playlist/65436'
-          imgSrc='/images/deepfocus.jpg'
-          imgAlt='deep-focus'
-        />
-        <PlayListItem
-          title='Deep Focus'
-          description='Keep calm and focus with ambient and post-rock ...'
-          href='/playlist/65436'
-          imgSrc='/images/deepfocus.jpg'
-          imgAlt='deep-focus'
+          imgAlt='all'
         />
       </PlayListContainer>
     </div>
