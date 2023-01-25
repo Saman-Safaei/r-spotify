@@ -4,6 +4,7 @@ import SigninModal from '../components/Authentication/SigninModal'
 import SignupModal from '../components/Authentication/SignupModal'
 import Navbar from '../components/Navbar/Navbar'
 import Sidebar from '../components/Sidebar/Sidebar'
+import MusicBar from '../components/Music/MusicBar'
 import uiSlice from '../contexts/ui/ui-slice'
 
 function DefaultLayout() {
@@ -13,9 +14,10 @@ function DefaultLayout() {
     <Fragment>
       <Navbar />
       <Sidebar />
-      <main className='pb-sidebar lg:pb-0 mt-navbar lg:ml-lg-sidebar max-w-7xl text-gray-200'>
+      <main className='pb-sidebar lg:pb-0 mt-navbar mb-28 lg:ml-lg-sidebar max-w-7xl text-gray-200'>
         <Outlet />
       </main>
+      <MusicBar />
       <SignupModal show={uiCtx.isSignupShow} onHide={uiCtx.hideSignup} />
       <SigninModal show={uiCtx.isSigninShow} onHide={uiCtx.hideSignin} />
     </Fragment>
