@@ -38,12 +38,13 @@ export default function MusicProvider({ children }) {
 
   musicApi.current.addEventListener('loadedmetadata', () => {
     dispatchMusic({ type: actionTypes.INIT_DURATION, payload: { duration: musicApi.current.duration } })
-    console.log(musicApi.current.duration)
   })
-
   musicApi.current.addEventListener('timeupdate', () => {
     dispatchMusic({ type: actionTypes.UPDATE_TIME, payload: { time: musicApi.current.currentTime } })
-    console.log(musicApi.current.currentTime)
+  })
+  musicApi.current.addEventListener('ended', () => {
+    dispatchMusic({ type: actionTypes.UPDATE_TIME, payload: { time: 0 } })
+    dispatchMusic({ type: actionTypes.PAUSE_MUSIC })
   })
 
   const providerValue = {
@@ -53,7 +54,7 @@ export default function MusicProvider({ children }) {
     playMusic: playMusicHandler,
     pauseMusic: pauseMusicHandler,
     currentDuration: musicState.currentDuration,
-    currentTime: musicState.currentTime
+    currentTime: musicState.currentTime,
   }
 
   return <musicSlice.Provider value={providerValue}>{children}</musicSlice.Provider>
