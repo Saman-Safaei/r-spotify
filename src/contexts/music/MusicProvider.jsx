@@ -19,42 +19,63 @@ export default function MusicProvider({ children }) {
   const musicApi = useRef(new Audio())
   const [musicState, dispatchMusic] = useReducer(musicReducer, defaultValues, undefined)
 
+  // Load music ---------------------------------
   const loadMusicHandler = url => {
     dispatchMusic({ type: actionTypes.LOAD_MUSIC, payload: { url } })
     musicApi.current.src = url
     dispatchMusic({ type: actionTypes.INIT_DURATION, payload: { duration: musicApi.current.duration } })
     musicApi.current.play().then()
   }
+  const loadPlaylistHandler = urlList => {
+    dispatchMusic({ type: actionTypes.LOAD_MUSIC, payload: { urlList } })
+    if (urlList.length && urlList.length > 0) {
+      musicApi.current.src = urlList[0]
+      dispatchMusic({ type: actionTypes.INIT_DURATION, payload: { duration: musicApi.current.duration } })
+      musicApi.current.play().then()
+    }
+  }
+  // Play Music ---------------------------------
   const playMusicHandler = () => {
     if (!musicApi.current.src.trim()) return
 
     dispatchMusic({ type: actionTypes.PLAY_MUSIC })
     musicApi.current.play().then()
   }
+  // Pause Music --------------------------------
   const pauseMusicHandler = () => {
     dispatchMusic({ type: actionTypes.PAUSE_MUSIC })
     musicApi.current.pause()
   }
 
+  // on Music load
   musicApi.current.addEventListener('loadedmetadata', () => {
     dispatchMusic({ type: actionTypes.INIT_DURATION, payload: { duration: musicApi.current.duration } })
   })
+  // on Music Time Updated
   musicApi.current.addEventListener('timeupdate', () => {
     dispatchMusic({ type: actionTypes.UPDATE_TIME, payload: { time: musicApi.current.currentTime } })
   })
+  // on Music Ended
   musicApi.current.addEventListener('ended', () => {
     dispatchMusic({ type: actionTypes.UPDATE_TIME, payload: { time: 0 } })
-    dispatchMusic({ type: actionTypes.PAUSE_MUSIC })
+    const isPlayingIndex = musicState.musicUrls.indexOf(musicApi.current.src)
+    if (musicState.musicUrls.length > 1 && isPlayingIndex !== musicState.musicUrls.length - 1) {
+      musicApi.current.src = musicState.musicUrls[isPlayingIndex + 1]
+      musicApi.current.play().then()
+    } else {
+      musicApi.current.pause()
+      musicApi.current.currentTime = 0
+    }
   })
 
   const providerValue = {
     musicUrls: musicState.musicUrls,
     isPlaying: musicState.isPlaying,
+    currentDuration: musicState.currentDuration,
+    currentTime: musicState.currentTime,
     loadMusic: loadMusicHandler,
     playMusic: playMusicHandler,
     pauseMusic: pauseMusicHandler,
-    currentDuration: musicState.currentDuration,
-    currentTime: musicState.currentTime,
   }
 
   return <musicSlice.Provider value={providerValue}>{children}</musicSlice.Provider>
