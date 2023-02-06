@@ -1,7 +1,11 @@
 import PlayListContainer from '../components/Playlist/PlayListContainer'
 import PlayListItem from '../components/Playlist/PlayListItem'
+import usePlaylist from '../hooks/playlist'
+import playlist from './Playlist'
 
 function Home() {
+  const { data, isSuccess } = usePlaylist(0, 5, 'all')
+
   return (
     <div className='flex flex-col items-stretch gap-4 py-4 px-6'>
       <PlayListContainer title='Focus' href='/category/2341'>
@@ -51,6 +55,18 @@ function Home() {
           imgAlt='all'
           playable={false}
         />
+        {isSuccess && data.map(playList => (
+          <PlayListItem
+            key={playList.id}
+            href={'/playlist/234'}
+            title={playList.name}
+            musicList={playList.musics.map(music => `https://spotify.storage.iran.liara.space/${music.musicFile}`)}
+            description={playList.description}
+            imgAlt={playList.name}
+            imgSrc={`https://spotify.storage.iran.liara.space/${playList.imageCover}`}
+            playable={true}
+          />
+        ))}
       </PlayListContainer>
     </div>
   )
