@@ -8,6 +8,7 @@ const users: MockUser[] = [
     email: 'xsamansafaeix@gmail.com',
     username: 'SamanDev',
     playlists: [],
+    password: 'SamanSaman',
   },
   {
     id: 1,
@@ -16,6 +17,7 @@ const users: MockUser[] = [
     email: 'AliKarimi@gmail.com',
     username: 'AliFake',
     playlists: [],
+    password: 'AliAliAli',
   },
 ];
 
