@@ -37,3 +37,19 @@ export async function SignUp(req: RestRequest, res: ResponseComposition, ctx: Re
 
   return res(ctx.status(200), ctx.json({ token: userID }));
 }
+
+export async function getUserInfo(req: RestRequest, res: ResponseComposition, ctx: RestContext) {
+  const requestBody = await req.json<{ token: number }>();
+
+  const fakeUser = FakeUsers.find(fakeUser => fakeUser.id === requestBody.token);
+
+  if (!fakeUser) return res(ctx.status(403));
+
+  return res(
+    ctx.status(200),
+    ctx.json({
+      username: fakeUser.username,
+      email: fakeUser.email,
+    })
+  );
+}
