@@ -45,9 +45,11 @@ export async function SignUp(req: RestRequest, res: ResponseComposition, ctx: Re
 // -------------------------------------- User Info -----------------------------------------------
 
 export async function getUserInfo(req: RestRequest, res: ResponseComposition, ctx: RestContext) {
-  const requestBody = await req.json<{ token: number }>();
+  const requestBody = await req.json<{ token: string }>();
 
-  const fakeUser = FakeUsers.find(fakeUser => fakeUser.id === requestBody.token);
+  if (!requestBody.token) return res(ctx.status(403));
+
+  const fakeUser = FakeUsers.find(fakeUser => fakeUser.id === +requestBody.token);
 
   if (!fakeUser) return res(ctx.status(403));
 
