@@ -12,7 +12,7 @@ export const signin = (signinInfo: any) =>
     statusCode: res.status,
   }));
 
-export const userData = (token: string | null) =>
+export const userData = (token: Nullable<string>) =>
   fetcher.post('/auth/getUserInfo', { token }).then(res => ({
     data: res.data,
     statusCode: res.status,
