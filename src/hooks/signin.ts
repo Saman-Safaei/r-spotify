@@ -8,8 +8,8 @@ export default function useSignin() {
   const userCtx = useContext(userSlice);
   const uiCtx = useContext(uiSlice);
 
-  const successHandler = (data: { username: string; token: string }) => {
-    userCtx.setUser(data.username, data.token);
+  const successHandler = (variables: { data: any; statusCode: number }) => {
+    userCtx.setLogged(true, variables.data.token);
     uiCtx.hideAll();
   };
 
