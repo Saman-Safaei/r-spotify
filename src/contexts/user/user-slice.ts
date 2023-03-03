@@ -8,7 +8,7 @@ export type TDefaultState = {
 export type TDefaultFunctions = {
   setUser(username: string, email: string): void;
   logoutUser(): void;
-  setLogged(isLogged: boolean): void;
+  setLogged(isLogged: boolean, token: string): void;
 };
 
 export const defaultValues: TDefaultState = {
@@ -19,7 +19,7 @@ export const defaultValues: TDefaultState = {
 export const defaultFunctions: TDefaultFunctions = {
   setUser: (username: string, token: string) => {},
   logoutUser: () => {},
-  setLogged: (isLogged: boolean) => {},
+  setLogged: (isLogged: boolean, token: string) => {},
 };
 
 const userSlice = createContext({ ...defaultValues, ...defaultFunctions });
