@@ -1,12 +1,16 @@
 import { useMutation } from '@tanstack/react-query';
 import { signup } from '../api/users';
-import useSignin from './signin';
+import {useContext} from "react";
+import userSlice from "../contexts/user/user-slice";
+import uiSlice from "../contexts/ui/ui-slice";
 
 export default function useSignup() {
-  const { error, signin, isError, isLoading } = useSignin();
+  const userCtx = useContext(userSlice);
+  const uiCtx = useContext(uiSlice);
 
   const successHandler = variables => {
-    signin(variables);
+    userCtx.setLogged(true, variables.data.token)
+    uiCtx.hideAll()
   };
 
   const { mutate, ...mutationData } = useMutation({
@@ -15,7 +19,7 @@ export default function useSignup() {
 
   const signupHandler = variables => {
     mutate(variables, {
-      onSuccess: () => successHandler(variables),
+      onSuccess: successHandler,
     });
   };
 
@@ -27,9 +31,9 @@ export default function useSignup() {
   return {
     signup: signupHandler,
     ...mutationData,
-    error: mutationData.error || error,
-    isError: mutationData.isError || isError,
-    isLoading: mutationData.isLoading || isLoading,
+    error: mutationData.error,
+    isError: mutationData.isError,
+    isLoading: mutationData.isLoading,
     errorMessage,
   };
 }
