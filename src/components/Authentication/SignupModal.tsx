@@ -3,7 +3,12 @@ import useSignup from '../../hooks/signup'
 import Modal from '../UI/Modal'
 import * as signupForm from '../../forms/signup'
 
-function SignupModal({ show, onHide = () => {} }) {
+interface SignupModalProps {
+  show: boolean;
+  onHide(): void;
+}
+
+function SignupModal({ show, onHide = () => {} }: SignupModalProps) {
   const { error, isLoading, signup, errorMessage } = useSignup()
 
   const backgroundBg = isLoading
