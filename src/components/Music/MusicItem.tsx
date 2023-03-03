@@ -1,6 +1,13 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
-function MusicItem({ id, duration, imageCover, title }) {
+interface MusicItemProps {
+  id: number;
+  duration: number;
+  imageCover: string;
+  title: string;
+}
+
+function MusicItem({ id, duration, imageCover, title }: MusicItemProps) {
   return (
     <div className='relative flex flex-col items-stretch gap-4 p-4 rounded-lg bg-neutral-800/50 hover:bg-neutral-800 transition-colors duration-300'>
       <div>
@@ -20,7 +27,7 @@ function MusicItem({ id, duration, imageCover, title }) {
       </div>
       <Link to={`/song/${id}`} className='absolute inset-0 z-[1]'></Link>
     </div>
-  )
+  );
 }
 
 export default MusicItem
