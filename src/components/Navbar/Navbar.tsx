@@ -32,7 +32,7 @@ function Navbar() {
             <Link
               to='#'
               className='rounded-full py-3 px-6 bg-white text-gray-900'>
-              {userCtx.username}
+              {userCtx.username || 'Loading'}
             </Link>
           </Fragment>
         )}
