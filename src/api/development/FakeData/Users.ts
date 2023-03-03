@@ -1,5 +1,3 @@
-import type { MockUser } from '../../../types/MockUser';
-
 const users: MockUser[] = [
   {
     id: 0,

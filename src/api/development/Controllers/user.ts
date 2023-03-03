@@ -1,8 +1,5 @@
 import { ResponseComposition, RestContext, RestRequest } from 'msw';
 import FakeUsers from '../FakeData/Users';
-import type { MockUser } from '../../../types/MockUser';
-import type { SignUpBody } from '../../../types/MockSIgnUpBody';
-import type { SignInBody } from '../../../types/MockSignInBody';
 
 // --------------------------------------- Sign in ------------------------------------------------
 
@@ -45,7 +42,7 @@ export async function SignUp(req: RestRequest, res: ResponseComposition, ctx: Re
 // -------------------------------------- User Info -----------------------------------------------
 
 export async function getUserInfo(req: RestRequest, res: ResponseComposition, ctx: RestContext) {
-  const requestBody = await req.json<{ token: string }>();
+  const requestBody = await req.json<GetUserInfoBody>();
 
   if (!requestBody.token) return res(ctx.status(403));
 
