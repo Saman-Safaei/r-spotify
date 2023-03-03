@@ -1,5 +1,5 @@
 import { rest, RestHandler } from 'msw';
-import url from './Utilities/filename';
+import url from './Utilities/name';
 import { getUserInfo, SignIn, SignUp } from './Controllers/user';
 
 const handlers: RestHandler[] = [
