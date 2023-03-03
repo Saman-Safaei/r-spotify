@@ -4,6 +4,8 @@ import type { MockUser } from '../../../types/MockUser';
 import type { SignUpBody } from '../../../types/MockSIgnUpBody';
 import type { SignInBody } from '../../../types/MockSignInBody';
 
+// --------------------------------------- Sign in ------------------------------------------------
+
 export async function SignIn(req: RestRequest, res: ResponseComposition, ctx: RestContext) {
   const requestBody = await req.json<SignInBody>();
   const fakeUser = FakeUsers.find(fakeUser => fakeUser.username === requestBody.username);
@@ -17,6 +19,8 @@ export async function SignIn(req: RestRequest, res: ResponseComposition, ctx: Re
 
   return res(ctx.status(200), ctx.json({ token: fakeUser.id }));
 }
+
+// --------------------------------------- Sign up ------------------------------------------------
 
 export async function SignUp(req: RestRequest, res: ResponseComposition, ctx: RestContext) {
   const requestBody = await req.json<SignUpBody>();
@@ -37,6 +41,8 @@ export async function SignUp(req: RestRequest, res: ResponseComposition, ctx: Re
 
   return res(ctx.status(200), ctx.json({ token: userID }));
 }
+
+// -------------------------------------- User Info -----------------------------------------------
 
 export async function getUserInfo(req: RestRequest, res: ResponseComposition, ctx: RestContext) {
   const requestBody = await req.json<{ token: number }>();
