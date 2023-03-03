@@ -1,22 +1,10 @@
 import { createContext } from 'react';
 
-export type TDefaultState = {
-  isSignupShow: boolean;
-  isSigninShow: boolean;
-};
-export type TDefaultFunctions = {
-  showSignup(): void;
-  showSignin(): void;
-  hideAll(): void;
-  hideSignup(): void;
-  hideSignin(): void;
-};
-
-export const defaultValues: TDefaultState = {
+export const defaultValues: CtxUIState = {
   isSignupShow: false,
   isSigninShow: false,
 };
-export const defaultFunctions: TDefaultFunctions = {
+export const defaultFunctions: CtxUIFunctions = {
   showSignup: () => {},
   showSignin: () => {},
   hideAll: () => {},

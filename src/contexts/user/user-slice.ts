@@ -1,22 +1,12 @@
 import { createContext } from 'react';
 
-export type TDefaultState = {
-  username: string;
-  email: string;
-  logged: boolean;
-};
-export type TDefaultFunctions = {
-  setUser(username: string, email: string): void;
-  logoutUser(): void;
-  setLogged(isLogged: boolean, token: string): void;
-};
-
-export const defaultValues: TDefaultState = {
+export const defaultValues: CtxUserState = {
   username: '',
   email: '',
   logged: false,
 };
-export const defaultFunctions: TDefaultFunctions = {
+
+export const defaultFunctions: CtxUserFunctions = {
   setUser: (username: string, token: string) => {},
   logoutUser: () => {},
   setLogged: (isLogged: boolean, token: string) => {},

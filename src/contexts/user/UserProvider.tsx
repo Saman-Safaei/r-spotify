@@ -1,8 +1,8 @@
-import { useReducer } from 'react';
-import userSlice, { actionTypes, TDefaultState } from './user-slice';
+import {ReactNode, useReducer} from 'react';
+import userSlice, { actionTypes } from './user-slice';
 import useUserData from '../../hooks/user-data';
 
-function userReducer(state: TDefaultState, action: { type: number; payload?: any }): TDefaultState {
+function userReducer(state: CtxUserState, action: { type: number; payload?: any }): CtxUserState {
   if (action.type === actionTypes.SET_LOGGED) {
     return {
       ...state,
@@ -26,11 +26,11 @@ function userReducer(state: TDefaultState, action: { type: number; payload?: any
   } else return state;
 }
 
-type TProps = {
-  children: any;
-};
+interface UserProviderProps  {
+  children?: ReactNode;
+}
 
-export default function UserProvider({ children }: TProps) {
+export default function UserProvider({ children }: UserProviderProps) {
   const [userState, userDispatch] = useReducer(userReducer, null, () => ({
     username: 'Loading',
     email: 'Loading',
@@ -42,9 +42,11 @@ export default function UserProvider({ children }: TProps) {
     localStorage.setItem('token', token);
     localStorage.setItem('logged', 'true');
   };
+
   const setUserHandler = (username: string, email: string) => {
     userDispatch({ type: actionTypes.SET_USER, payload: { username, email } });
   };
+
   const logoutUserHandler = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('logged');

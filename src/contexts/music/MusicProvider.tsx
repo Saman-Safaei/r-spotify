@@ -1,7 +1,7 @@
 import React, { MutableRefObject, useCallback, useEffect, useReducer, useRef } from 'react';
-import musicSlice, { actionTypes, defaultState, TDefaultState } from "./music-slice";
+import musicSlice, { actionTypes, defaultState } from "./music-slice";
 
-function musicReducer(state: TDefaultState, action: { type: number; payload?: any }) {
+function musicReducer(state: CtxMusicState, action: { type: number; payload?: any }) {
   if (action.type === actionTypes.LOAD_MUSIC) {
     return { ...state, musicUrls: [action.payload.url], isPlaying: true };
   } else if (action.type === actionTypes.LOAD_PLAYLIST) {

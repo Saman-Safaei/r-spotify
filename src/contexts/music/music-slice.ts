@@ -1,30 +1,13 @@
 import { createContext } from 'react';
 
-export type TDefaultState = {
-  isPlaying: boolean;
-  musicUrls: string[];
-  currentDuration: number;
-  currentTime: number;
-};
-
-export type TDefaultFunctions = {
-  loadMusic(url: string): void;
-  loadPlaylist(urls: string[]): void;
-  playMusic(): void;
-  pauseMusic(): void;
-  forwardMusic(): void;
-  backwardMusic(): void;
-  setTimePercent(percent: number): void;
-};
-
-export const defaultState: TDefaultState = {
+export const defaultState: CtxMusicState = {
   isPlaying: false,
   musicUrls: [],
   currentDuration: 1,
   currentTime: 0,
 };
 
-export const defaultFunctions: TDefaultFunctions = {
+export const defaultFunctions: CtxMusicFunctions = {
   loadMusic: (url: string) => {},
   loadPlaylist: (urls: string[]) => {},
   playMusic: () => {},

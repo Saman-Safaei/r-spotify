@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
 // @ts-ignore
 
 interface MockMusic {
@@ -43,4 +44,63 @@ interface MockUser {
 
 interface GetUserInfoBody {
   token: string;
+}
+
+interface CtxMusicFunctions {
+  loadMusic(url: string): void;
+
+  loadPlaylist(urls: string[]): void;
+
+  playMusic(): void;
+
+  pauseMusic(): void;
+
+  forwardMusic(): void;
+
+  backwardMusic(): void;
+
+  setTimePercent(percent: number): void;
+}
+
+interface CtxMusicState {
+  isPlaying: boolean;
+  musicUrls: string[];
+  currentDuration: number;
+  currentTime: number;
+}
+
+interface CtxUIFunctions {
+  showSignup(): void;
+
+  showSignin(): void;
+
+  hideAll(): void;
+
+  hideSignup(): void;
+
+  hideSignin(): void;
+}
+
+interface CtxUIState {
+  isSignupShow: boolean;
+  isSigninShow: boolean;
+}
+
+interface Action<T = number, U = any> {
+  type: T;
+  payload?: U;
+}
+
+interface CtxUserFunctions {
+  setUser(username: string, email: string): void;
+
+  logoutUser(): void;
+
+  setLogged(isLogged: boolean, token: string): void;
+}
+
+interface CtxUserState {
+  username: string;
+  email: string;
+  logged: boolean;
 }

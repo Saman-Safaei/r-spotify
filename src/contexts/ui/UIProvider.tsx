@@ -1,7 +1,7 @@
-import { useReducer } from 'react';
-import uiSlice, { defaultValues, actionTypes, TDefaultState } from './ui-slice';
+import {ReactNode, useReducer} from 'react';
+import uiSlice, { defaultValues, actionTypes } from './ui-slice';
 
-function uiReducer(state: TDefaultState, action: { type: number; payload?: any }) {
+function uiReducer(state: CtxUIState, action: Action) {
   if (action.type === actionTypes.SHOW_SIGNIN) return { ...state, isSigninShow: true };
   else if (action.type === actionTypes.SHOW_SIGNUP) return { ...state, isSignupShow: true };
   else if (action.type === actionTypes.HIDE_ALL) return { ...state, isSignupShow: false, isSigninShow: false };
@@ -10,15 +10,17 @@ function uiReducer(state: TDefaultState, action: { type: number; payload?: any }
   else return state;
 }
 
-type props = { children: any };
+interface UIProviderProps {
+  children: ReactNode;
+}
 
-export default function UIProvider({ children }: props) {
+export default function UIProvider({ children }: UIProviderProps) {
   const [uiState, uiDispatch] = useReducer(uiReducer, defaultValues);
 
   const showSigninHandler = () => {
     uiDispatch({ type: actionTypes.SHOW_SIGNIN });
   };
-  const showSignupHander = () => {
+  const showSignupHandler = () => {
     uiDispatch({ type: actionTypes.SHOW_SIGNUP });
   };
   const hideAllHandler = () => {
@@ -34,7 +36,7 @@ export default function UIProvider({ children }: props) {
   const providerValue = {
     ...uiState,
     showSignin: showSigninHandler,
-    showSignup: showSignupHander,
+    showSignup: showSignupHandler,
     hideAll: hideAllHandler,
     hideSignin: hideSigninHandler,
     hideSignup: hideSignupHandler,
