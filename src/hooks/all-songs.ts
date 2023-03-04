@@ -6,10 +6,10 @@ export default function useAllSongs() {
     queryKey: ['songs'],
     queryFn: getBySkip,
     staleTime: 1000 * 60,
-    getNextPageParam: (lastPage, allPages) => (lastPage.length === 20 ? Math.floor(allPages.length / 20) : undefined),
+    getNextPageParam: (lastPage, allPages) => (lastPage.data.length === 10 ? Math.floor(allPages.length / 10) : undefined),
   });
 
-  const allData: TGetBySkip[] | undefined = data?.pages.flat();
+  const allData: TGetBySkip[] | undefined = data?.pages.map(page => page.data).flat();
 
   return {
     data: allData,
