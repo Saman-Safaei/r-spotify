@@ -10,7 +10,12 @@ interface MockMusic {
   musicFile: string;
   publishDate: string;
   like: number;
-  singer: MockSinger[];
+  singer: {
+    id: number;
+    firstname: string;
+    lastname: string;
+    profilephoto: string;
+  };
   album?: string;
 }
 
@@ -29,7 +34,7 @@ interface MockSinger {
   id: number;
   firstname: string;
   lastname: string;
-  musics: MockMusic[];
+  musics: number[];
 }
 
 interface MockUser {
@@ -44,6 +49,9 @@ interface MockUser {
 
 interface GetUserInfoBody {
   token: string;
+}
+interface GetMusicByIdBody {
+  id: number;
 }
 
 interface CtxMusicFunctions {
