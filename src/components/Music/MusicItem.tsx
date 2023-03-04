@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import {AuthLink} from "../../hocs/with-auth";
 
 interface MusicItemProps {
   id: number;
@@ -8,12 +8,13 @@ interface MusicItemProps {
 }
 
 function MusicItem({ id, duration, imageCover, title }: MusicItemProps) {
+
   return (
     <div className='relative flex flex-col items-stretch gap-4 p-4 rounded-lg bg-neutral-800/50 hover:bg-neutral-800 transition-colors duration-300'>
       <div>
         <img
           className='aspect-square w-full object-cover rounded bg-neutral-700/50'
-          src={`https://spotify.storage.iran.liara.space/${imageCover}`}
+          src={`${process.env.REACT_APP_FILE_URL}/${imageCover}`}
           alt={title}
         />
       </div>
@@ -25,9 +26,9 @@ function MusicItem({ id, duration, imageCover, title }: MusicItemProps) {
       <div className='mt-auto'>
         <h4 className='text-xs text-gray-500'>Duration: {duration}sec</h4>
       </div>
-      <Link to={`/song/${id}`} className='absolute inset-0 z-[1]'></Link>
+      <AuthLink to={`/song/${id}`} className='absolute inset-0 z-[1]'></AuthLink>
     </div>
   );
 }
 
-export default MusicItem
+export default MusicItem;
