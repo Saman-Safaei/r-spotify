@@ -23,7 +23,7 @@ export default function Song() {
       <div className='flex flex-col items-center sm:flex-row p-4 bg-gradient-to-b gap-6 from-white/20 to-transparent'>
         <div className='w-52 h-52 shrink-0'>
           <img
-            src={`https://spotify.storage.iran.liara.space/${data.imageCover}`}
+            src={`${process.env.REACT_APP_FILE_URL}/${data.imageCover}`}
             alt='song-cover'
             className='w-full h-full rounded-md object-cover shadow-lg'
           />
@@ -41,7 +41,7 @@ export default function Song() {
       </div>
       <div>
         <button
-          onClick={() => musicCtx.loadMusic(`https://spotify.storage.iran.liara.space/${data.musicFile}`)}
+          onClick={() => musicCtx.loadMusic(`${process.env.REACT_APP_FILE_URL}/${data.musicFile}`)}
           className='w-14 h-14 p-3 bg-green-500 rounded-full'>
           <PlayIcon className='w-full h-full text-black' />
         </button>
