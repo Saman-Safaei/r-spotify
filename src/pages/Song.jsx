@@ -3,8 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom'
 import useSongById from '../hooks/song-by-id'
 import musicSlice from '../contexts/music/music-slice'
 import { PlayIcon } from '@heroicons/react/24/solid'
+import withAuth from "../hocs/with-auth";
 
-export default function Song() {
+function Song() {
   const params = useParams()
   const navigate = useNavigate()
   const pageId = +params.id
@@ -49,3 +50,5 @@ export default function Song() {
     </Fragment>
   )
 }
+
+export default withAuth(Song)
