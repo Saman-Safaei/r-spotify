@@ -24,7 +24,14 @@ export type TGetById = {
   album?: string;
 };
 
-export const getBySkip = ({ pageParam = 0 }) =>
-  fetcher.get<TGetBySkip[]>(`/Music/GetBySkip?Skip=${pageParam}`).then(res => res.data);
+export const getBySkip = ({ pageParam = 0 }):RQueryResponse<TGetBySkip[]> =>
+  fetcher.get(`/musics/getBySkip?skip=${pageParam}`).then(res => ({
+    data: res.data,
+    statusCode: res.status,
+  }));
 
-export const getById = (id: number) => fetcher.get<TGetById>(`/Music/GetById?Id=${id}`).then(res => res.data);
+export const getById = (id: number):RQueryResponse<TGetById> =>
+  fetcher.post(`/musics/getById`, { id }).then(res => ({
+    data: res.data,
+    statusCode: res.status,
+  }));
