@@ -1,5 +1,11 @@
-import { FunctionComponent, useContext, useEffect, MouseEvent as ReactMouseEvent } from 'react';
-import {Link, LinkProps, useNavigate} from 'react-router-dom';
+import {
+  FunctionComponent,
+  useContext,
+  useEffect,
+  MouseEvent as ReactMouseEvent,
+  ComponentPropsWithoutRef,
+} from 'react';
+import { Link, LinkProps, useNavigate } from 'react-router-dom';
 import userSlice from '../contexts/user/user-slice';
 import uiSlice from '../contexts/ui/ui-slice';
 
@@ -26,7 +32,7 @@ export function AuthLink({ onClick, ...props }: LinkProps) {
   const userCtx = useContext(userSlice);
   const uiCtx = useContext(uiSlice);
 
-  const clickHandler = (ev: ReactMouseEvent) => {
+  const clickHandler = (ev: ReactMouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (!userCtx.logged) {
       ev.preventDefault();
       uiCtx.showSignin();
@@ -34,4 +40,24 @@ export function AuthLink({ onClick, ...props }: LinkProps) {
   };
 
   return <Link onClick={clickHandler} {...props} />;
+}
+
+export function AuthButton({ onClick, children, ...props }: ComponentPropsWithoutRef<'button'>) {
+  const userCtx = useContext(userSlice);
+  const uiCtx = useContext(uiSlice);
+
+  const clickHandler = (ev: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {
+    if (!userCtx.logged) {
+      ev.preventDefault();
+      uiCtx.showSignin();
+    } else {
+      if (onClick) onClick(ev);
+    }
+  };
+
+  return (
+    <button onClick={clickHandler} {...props}>
+      {children}
+    </button>
+  );
 }
