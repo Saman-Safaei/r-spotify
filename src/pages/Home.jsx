@@ -1,10 +1,9 @@
-import PlayListContainer from '../components/Playlist/PlayListContainer'
-import PlayListItem from '../components/Playlist/PlayListItem'
-import usePlaylist from '../hooks/playlist'
-import playlist from './Playlist'
+import PlayListContainer from '../components/Playlist/PlayListContainer';
+import PlayListItem from '../components/Playlist/PlayListItem';
+import usePlaylist from '../hooks/playlist';
 
 function Home() {
-  const { data, isSuccess } = usePlaylist(0, 5, 'all')
+  const { data, isSuccess } = usePlaylist(0, 4, 'all');
 
   return (
     <div className='flex flex-col items-stretch gap-4 py-4 px-6'>
@@ -55,21 +54,23 @@ function Home() {
           imgAlt='all'
           playable={false}
         />
-        {isSuccess && data.map(playList => (
-          <PlayListItem
-            key={playList.id}
-            href={'/playlist/234'}
-            title={playList.name}
-            musicList={playList.musics.map(music => `https://spotify.storage.iran.liara.space/${music.musicFile}`)}
-            description={playList.description}
-            imgAlt={playList.name}
-            imgSrc={`https://spotify.storage.iran.liara.space/${playList.imageCover}`}
-            playable={true}
-          />
-        ))}
+        {isSuccess
+          ? data.map(playList => (
+              <PlayListItem
+                key={playList.id}
+                href={'/playlist/234'}
+                title={playList.name}
+                musicList={playList.musics.map(music => `${process.env.REACT_APP_FILE_URL}/${music}`)}
+                description={playList.description}
+                imgAlt={playList.name}
+                imgSrc={`${process.env.REACT_APP_FILE_URL}/${playList.imageCover}`}
+                playable={true}
+              />
+            ))
+          : null}
       </PlayListContainer>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
