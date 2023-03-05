@@ -31,5 +31,7 @@ export async function getPlaylistBySkip(req: RestRequest, res: ResponseCompositi
 
   const playlists = Playlists.slice(skipNum, skipNum + takeNum);
 
-  return res(ctx.json(playlists));
+  const filteredPlaylists = playlists.filter(playlist => playlist.category === categoryString);
+
+  return res(ctx.json(categoryString === 'all' ? playlists : filteredPlaylists));
 }
