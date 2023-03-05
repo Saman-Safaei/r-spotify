@@ -122,3 +122,12 @@ interface MockPlaylist {
   category: string;
   musics: MockMusic[];
 }
+
+interface MockLimitedPlaylist {
+  id: number;
+  name: string;
+  description: string;
+  imageCover: string;
+  category: string;
+  musics: string[];
+}
