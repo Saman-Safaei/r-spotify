@@ -1,9 +1,9 @@
 import PlayListContainer from '../components/Playlist/PlayListContainer';
 import PlayListItem from '../components/Playlist/PlayListItem';
-import usePlaylist from '../hooks/playlist';
+import { usePlaylists } from '../hooks/playlist';
 
 function Home() {
-  const { data, isSuccess } = usePlaylist(0, 4, 'all');
+  const { data, isSuccess } = usePlaylists(0, 4, 'all');
 
   return (
     <div className='flex flex-col items-stretch gap-4 py-4 px-6'>
