@@ -40,7 +40,7 @@ function Song() {
           </h5>
         </div>
       </div>
-      <div>
+      <div className="px-4 flex justify-center items-center">
         <button
           onClick={() => musicCtx.loadMusic(`${process.env.REACT_APP_FILE_URL}/${data.musicFile}`)}
           className='w-14 h-14 p-3 bg-green-500 rounded-full'>
