@@ -29,7 +29,14 @@ export async function getPlaylistBySkip(req: RestRequest, res: ResponseCompositi
 
   if (isNaN(skipNum) || isNaN(takeNum)) return res(ctx.status(400));
 
-  const playlists = Playlists.slice(skipNum, skipNum + takeNum);
+  const playlists: MockLimitedPlaylist[] = Playlists.slice(skipNum, skipNum + takeNum).map(playlist => ({
+    id: playlist.id,
+    category: playlist.category,
+    musics: playlist.musics.map(music => music.musicFile),
+    description: playlist.description,
+    name: playlist.name,
+    imageCover: playlist.imageCover,
+  }));
 
   const filteredPlaylists = playlists.filter(playlist => playlist.category === categoryString);
 
