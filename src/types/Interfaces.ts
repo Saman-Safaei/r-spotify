@@ -50,6 +50,7 @@ interface MockUser {
 interface GetUserInfoBody {
   token: string;
 }
+
 interface GetMusicByIdBody {
   id: number;
 }
@@ -111,4 +112,13 @@ interface CtxUserState {
   username: string;
   email: string;
   logged: boolean;
+}
+
+interface MockPlaylist {
+  id: number;
+  name: string;
+  description: string;
+  imageCover: string;
+  category: string;
+  musics: MockMusic[];
 }
