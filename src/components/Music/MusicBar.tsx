@@ -21,9 +21,15 @@ function MusicBar() {
     else musicCtx.playMusic();
   }, [musicCtx]);
 
-  useEffect(() => {
+  const resizeHandler = useCallback(() => {
     setMusicTimelineLength(timeLineRef.current?.clientWidth);
-  }, []);
+  }, [])
+
+  useEffect(() => {
+    resizeHandler()
+    window.addEventListener('resize', resizeHandler)
+    return () => window.removeEventListener('resize', resizeHandler)
+  }, [resizeHandler]);
 
   return (
     <div
