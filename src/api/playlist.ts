@@ -1,18 +1,13 @@
 import fetcher from '.';
 
-type TGetBySkip = {
-  title: string;
-  label: string;
-  id: number;
-  longID: number;
-};
+export const getBySkip = (skip: number, count: number, category: string): RQueryResponse<MockLimitedPlaylist[]> =>
+  fetcher.get(`/playlists/getBySkip?skip=${skip}&take=${count}&category=${category}`).then(res => ({
+    data: res.data,
+    statusCode: res.status,
+  }));
 
-type TGetById = {
-  id: number;
-
-};
-
-export const getBySkip = (skip: number, count: number, category: string) =>
-  fetcher.get<TGetBySkip[]>(`/Playlist/GetBySkip?Skip=${skip}&Take=${count}&Category=${category}`).then(res => res.data);
-
-export const getById = (id: number) => fetcher.get<TGetById>(`/Playlist/GetById?id=${id}`).then(res => res.data);
+export const getById = (id: number): RQueryResponse<MockPlaylist> =>
+  fetcher.get(`/playlists/getById?id=${id}`).then(res => ({
+    data: res.data,
+    statusCode: res.status,
+  }));
