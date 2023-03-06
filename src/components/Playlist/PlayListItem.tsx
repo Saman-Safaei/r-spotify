@@ -1,8 +1,7 @@
 import { useContext } from 'react';
 import { PlayIcon } from '@heroicons/react/24/solid';
-import { Link } from 'react-router-dom';
 import musicSlice from '../../contexts/music/music-slice';
-import { AuthButton } from '../../hocs/with-auth';
+import {AuthButton, AuthLink} from '../../hocs/with-auth';
 
 interface PlayListItemProps {
   imgSrc: string;
@@ -40,7 +39,7 @@ export default function PlayListItem({
         <h4 className='mb-1 font-bold text-white'>{title}</h4>
         <p className='text-sm text-gray-400'>{description}</p>
       </div>
-      <Link to={href} className='absolute inset-0 z-[1]'></Link>
+      <AuthLink to={href} className='absolute inset-0 z-[1]'></AuthLink>
     </div>
   );
 }
