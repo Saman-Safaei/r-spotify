@@ -58,7 +58,7 @@ function Home() {
           ? data.map(playList => (
               <PlayListItem
                 key={playList.id}
-                href={'/playlist/234'}
+                href={`/playlist/${playList.id}`}
                 title={playList.name}
                 musicList={playList.musics.map(music => `${process.env.REACT_APP_FILE_URL}/${music}`)}
                 description={playList.description}
