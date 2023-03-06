@@ -1,11 +1,10 @@
 import { PlayIcon } from '@heroicons/react/24/solid'
 import { Fragment } from 'react'
-import {} from 'react-router-dom'
 
 function Playlist() {
   return (
     <Fragment>
-      <div className='flex flex-col items-center sm:flex-row p-4 bg-gradient-to-b gap-6 from-white/20 to-white/5'>
+      <div className='flex flex-col items-center sm:flex-row p-4 bg-gradient-to-b gap-6 from-white/20 to-transparent'>
         <div className='w-52 h-52 shrink-0'>
           <img
             src='/images/deepfocus.jpg'
