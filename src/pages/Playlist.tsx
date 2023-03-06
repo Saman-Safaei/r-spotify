@@ -1,27 +1,33 @@
-import { PlayIcon } from '@heroicons/react/24/solid'
-import { Fragment } from 'react'
+import { PlayIcon } from '@heroicons/react/24/solid';
+import { Fragment } from 'react';
+import { useParams } from 'react-router-dom';
+import { usePlaylist } from '../hooks/playlist';
+import withAuth from '../hocs/with-auth';
 
 function Playlist() {
+  const { id } = useParams();
+
+  const { response } = usePlaylist(id!);
+
   return (
     <Fragment>
       <div className='flex flex-col items-center sm:flex-row p-4 bg-gradient-to-b gap-6 from-white/20 to-transparent'>
         <div className='w-52 h-52 shrink-0'>
           <img
-            src='/images/deepfocus.jpg'
+            src={`${process.env.REACT_APP_FILE_URL}/${response?.data.imageCover}`}
             alt='playlist-logo'
             className='w-full h-full rounded-md object-cover shadow-lg'
           />
         </div>
         <div className='flex flex-col items-center sm:items-start gap-3 text-center sm:text-start'>
           <h4 className='text-xs'>Playlist</h4>
-          <h3 className='text-4xl sm:text-6xl font-bold text-white'>
-            Deep Focus
-          </h3>
-          <p className='text-gray-300'>
-            Keep calm and focus with ambient and post-rock music.
-          </p>
+          <h3 className='text-4xl sm:text-6xl font-bold text-white'>{response?.data.name || 'Loading ...'}</h3>
+          <p className='text-gray-300'>{response?.data.description}</p>
           <h5 className='text-gray-300'>
-            5 Songs, <span className='text-gray-400'>1 hr 30 mins</span>
+            {response?.data.musics.length || '?'} Songs,{' '}
+            <span className='text-gray-400'>
+              {response?.data.musics.map(music => music.duration).reduce((p, n) => p + n)} secs
+            </span>
           </h5>
         </div>
       </div>
@@ -83,9 +89,14 @@ function Playlist() {
                 <td className='p-2'>7 Days ago</td>
                 <td className='p-2'>6 mins</td>
               </tr>
-              <tr>
-                <td className='p-2'>3</td>
-                <td className='p-2'>
+              <tr className='group'>
+                <td className='p-2 group-hover:bg-white/5 rounded-l-xl'>
+                  <span className='block group-hover:hidden w-4'>3</span>
+                  <button className="hidden group-hover:block">
+                    <PlayIcon className='w-4 h-4 text-green-500' />
+                  </button>
+                </td>
+                <td className='p-2 group-hover:bg-white/5'>
                   <div className='flex flex-row items-center gap-4'>
                     <div className='inline-block w-12 h-12 shadow-white/5 shadow-md rounded-md'>
                       <img
@@ -100,9 +111,9 @@ function Playlist() {
                     </div>
                   </div>
                 </td>
-                <td className='p-2'>Dark Rises</td>
-                <td className='p-2'>7 Days ago</td>
-                <td className='p-2'>6 mins</td>
+                <td className='p-2 group-hover:bg-white/5'>Dark Rises</td>
+                <td className='p-2 group-hover:bg-white/5'>7 Days ago</td>
+                <td className='p-2 group-hover:bg-white/5 rounded-r-xl'>6 mins</td>
               </tr>
               <tr>
                 <td className='p-2'>4</td>
@@ -151,7 +162,7 @@ function Playlist() {
         </div>
       </div>
     </Fragment>
-  )
+  );
 }
 
-export default Playlist
+export default withAuth(Playlist);
