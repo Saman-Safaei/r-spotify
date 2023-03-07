@@ -3,11 +3,13 @@ import { Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import { usePlaylist } from '../hooks/playlist';
 import withAuth from '../hocs/with-auth';
+import PlaylistMusic from '../components/Pages/Playlist/PlaylistMusic';
 
 function Playlist() {
   const { id } = useParams();
 
   const { response } = usePlaylist(id!);
+  const musics = response?.data.musics;
 
   return (
     <Fragment>
@@ -47,116 +49,19 @@ function Playlist() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className='p-2'>1</td>
-                <td className='p-2'>
-                  <div className='flex flex-row items-center gap-4'>
-                    <div className='inline-block w-12 h-12 shadow-white/5 shadow-md rounded-md'>
-                      <img
-                        src='/images/deepfocus.jpg'
-                        alt='deepfocus'
-                        className='w-full h-full object-cover rounded-md'
-                      />
-                    </div>
-                    <div>
-                      <p>Deep Focus</p>
-                      <p className='text-xs text-gray-400'>Saman Safaei</p>
-                    </div>
-                  </div>
-                </td>
-                <td className='p-2'>Dark Rises</td>
-                <td className='p-2'>7 Days ago</td>
-                <td className='p-2'>6 mins</td>
-              </tr>
-              <tr>
-                <td className='p-2'>2</td>
-                <td className='p-2'>
-                  <div className='flex flex-row items-center gap-4'>
-                    <div className='inline-block w-12 h-12 shadow-white/5 shadow-md rounded-md'>
-                      <img
-                        src='/images/deepfocus.jpg'
-                        alt='deepfocus'
-                        className='w-full h-full object-cover rounded-md'
-                      />
-                    </div>
-                    <div>
-                      <p>Deep Focus</p>
-                      <p className='text-xs text-gray-400'>Saman Safaei</p>
-                    </div>
-                  </div>
-                </td>
-                <td className='p-2'>Dark Rises</td>
-                <td className='p-2'>7 Days ago</td>
-                <td className='p-2'>6 mins</td>
-              </tr>
-              <tr className='group'>
-                <td className='p-2 group-hover:bg-white/5 rounded-l-xl'>
-                  <span className='block group-hover:hidden w-4'>3</span>
-                  <button className="hidden group-hover:block">
-                    <PlayIcon className='w-4 h-4 text-green-500' />
-                  </button>
-                </td>
-                <td className='p-2 group-hover:bg-white/5'>
-                  <div className='flex flex-row items-center gap-4'>
-                    <div className='inline-block w-12 h-12 shadow-white/5 shadow-md rounded-md'>
-                      <img
-                        src='/images/deepfocus.jpg'
-                        alt='deepfocus'
-                        className='w-full h-full object-cover rounded-md'
-                      />
-                    </div>
-                    <div>
-                      <p>Deep Focus</p>
-                      <p className='text-xs text-gray-400'>Saman Safaei</p>
-                    </div>
-                  </div>
-                </td>
-                <td className='p-2 group-hover:bg-white/5'>Dark Rises</td>
-                <td className='p-2 group-hover:bg-white/5'>7 Days ago</td>
-                <td className='p-2 group-hover:bg-white/5 rounded-r-xl'>6 mins</td>
-              </tr>
-              <tr>
-                <td className='p-2'>4</td>
-                <td className='p-2'>
-                  <div className='flex flex-row items-center gap-4'>
-                    <div className='inline-block w-12 h-12 shadow-white/5 shadow-md rounded-md'>
-                      <img
-                        src='/images/deepfocus.jpg'
-                        alt='deepfocus'
-                        className='w-full h-full object-cover rounded-md'
-                      />
-                    </div>
-                    <div>
-                      <p>Deep Focus</p>
-                      <p className='text-xs text-gray-400'>Saman Safaei</p>
-                    </div>
-                  </div>
-                </td>
-                <td className='p-2'>Dark Rises</td>
-                <td className='p-2'>7 Days ago</td>
-                <td className='p-2'>6 mins</td>
-              </tr>
-              <tr>
-                <td className='p-2'>5</td>
-                <td className='p-2'>
-                  <div className='flex flex-row items-center gap-4'>
-                    <div className='inline-block w-12 h-12 shadow-white/5 shadow-md rounded-md'>
-                      <img
-                        src='/images/deepfocus.jpg'
-                        alt='deepfocus'
-                        className='w-full h-full object-cover rounded-md'
-                      />
-                    </div>
-                    <div>
-                      <p>Deep Focus</p>
-                      <p className='text-xs text-gray-400'>Saman Safaei</p>
-                    </div>
-                  </div>
-                </td>
-                <td className='p-2'>Dark Rises</td>
-                <td className='p-2'>7 Days ago</td>
-                <td className='p-2'>6 mins</td>
-              </tr>
+              {musics?.map((music, index) => (
+                <PlaylistMusic
+                  key={music.id}
+                  musicUrl={music.musicFile}
+                  musicNumber={index + 1}
+                  musicCover={`${process.env.REACT_APP_FILE_URL}/${music.imageCover}`}
+                  musicName={music.title}
+                  singerName={music.singer.firstname}
+                  albumName={music.album}
+                  uploadDay={music.publishDate}
+                  musicDuration={music.duration}
+                />
+              ))}
             </tbody>
           </table>
         </div>
