@@ -16,7 +16,7 @@ interface MockMusic {
     lastname: string;
     profilephoto: string;
   };
-  album?: string;
+  album: string;
 }
 
 interface SignInBody {

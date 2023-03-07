@@ -21,7 +21,7 @@ export type TGetById = {
     lastname: string;
     profilephoto: string;
   };
-  album?: string;
+  album: string;
 };
 
 export const getBySkip = ({ pageParam = 0 }):RQueryResponse<TGetBySkip[]> =>
