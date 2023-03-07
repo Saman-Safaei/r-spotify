@@ -1,7 +1,7 @@
 const playlists: MockPlaylist[] = [
   {
     id: 0,
-    imageCover: '/images/DarkSoulsCover.jpg',
+    imageCover: 'images/DarkSoulsCover.jpg',
     description: 'The soundtracks in Dark Souls - Artorias of Abyss edition.',
     name: 'Dark Souls - Artorias of Abyss Edition',
     category: 'game',
