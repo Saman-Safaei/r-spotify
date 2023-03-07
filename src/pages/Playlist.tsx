@@ -1,15 +1,21 @@
 import { PlayIcon } from '@heroicons/react/24/solid';
-import { Fragment } from 'react';
+import { Fragment, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { usePlaylist } from '../hooks/playlist';
 import withAuth from '../hocs/with-auth';
 import PlaylistMusic from '../components/Pages/Playlist/PlaylistMusic';
+import musicSlice from '../contexts/music/music-slice';
 
 function Playlist() {
   const { id } = useParams();
+  const musicCtx = useContext(musicSlice);
 
   const { response } = usePlaylist(id!);
   const musics = response?.data.musics;
+
+  const playMusicsOfPlaylistHandler = () => {
+    if (musics) musicCtx.loadPlaylist(musics.map(music => `${process.env.REACT_APP_FILE_URL}/${music.musicFile}`));
+  };
 
   return (
     <Fragment>
@@ -34,7 +40,7 @@ function Playlist() {
         </div>
       </div>
       <div className='p-4'>
-        <button className='block w-14 h-14 p-4 rounded-full bg-green-500 hover:bg-green-400 text-black mb-8'>
+        <button onClick={playMusicsOfPlaylistHandler} className='block w-14 h-14 p-4 rounded-full bg-green-500 hover:bg-green-400 text-black mb-8'>
           <PlayIcon className='w-full h-full' />
         </button>
         <div className='overflow-auto c-scroll'>
@@ -52,7 +58,7 @@ function Playlist() {
               {musics?.map((music, index) => (
                 <PlaylistMusic
                   key={music.id}
-                  musicUrl={music.musicFile}
+                  musicUrl={`${process.env.REACT_APP_FILE_URL}/${music.musicFile}`}
                   musicNumber={index + 1}
                   musicCover={`${process.env.REACT_APP_FILE_URL}/${music.imageCover}`}
                   musicName={music.title}
