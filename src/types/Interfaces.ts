@@ -9,7 +9,7 @@ interface MockMusic {
   duration: number;
   musicFile: string;
   publishDate: string;
-  like: number;
+  like: boolean;
   singer: {
     id: number;
     firstname: string;
@@ -120,6 +120,7 @@ interface MockPlaylist {
   description: string;
   imageCover: string;
   category: string;
+  like: boolean;
   musics: MockMusic[];
 }
 
