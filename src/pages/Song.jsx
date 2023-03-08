@@ -1,23 +1,31 @@
-import { Fragment, useContext, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import useSongById from '../hooks/song-by-id'
-import musicSlice from '../contexts/music/music-slice'
-import { PlayIcon } from '@heroicons/react/24/solid'
-import withAuth from "../hocs/with-auth";
+import { Fragment, useContext, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import useSongById from '../hooks/song-by-id';
+import musicSlice from '../contexts/music/music-slice';
+import { EllipsisHorizontalIcon, HeartIcon, PlayIcon } from '@heroicons/react/24/solid';
+import withAuth from '../hocs/with-auth';
+import { useMusicLike } from '../hooks/likes';
 
 function Song() {
-  const params = useParams()
-  const navigate = useNavigate()
-  const pageId = +params.id
-  const { data, isLoading, isError } = useSongById(pageId)
-  const musicCtx = useContext(musicSlice)
+  const params = useParams();
+  const navigate = useNavigate();
+  const pageId = +params.id;
+  const { data, isLoading, isError, refetch } = useSongById(pageId);
+  const musicCtx = useContext(musicSlice);
 
   useEffect(() => {
-    if (isNaN(pageId)) navigate(-1)
-  }, [])
+    if (isNaN(pageId)) navigate(-1);
+  }, []);
 
-  if (isLoading) return <div>Loading</div>
-  if (isError) return <div>Somethings went wrong...</div>
+  const {
+    mutate,
+    isLoading: mutateLoading
+  } = useMusicLike(pageId, () => {
+    refetch().then();
+  });
+
+  if (isLoading) return <div>Loading</div>;
+  if (isError) return <div>Somethings went wrong...</div>;
 
   return (
     <Fragment>
@@ -40,15 +48,21 @@ function Song() {
           </h5>
         </div>
       </div>
-      <div className="px-4 flex justify-center items-center">
+      <div className='px-4 flex items-center gap-4'>
         <button
           onClick={() => musicCtx.loadMusic(`${process.env.REACT_APP_FILE_URL}/${data.musicFile}`)}
           className='w-14 h-14 p-3 bg-green-500 rounded-full'>
           <PlayIcon className='w-full h-full text-black' />
         </button>
+        <button className='w-10 h-10 ml-auto'>
+          <EllipsisHorizontalIcon className='w-full h-full text-white' />
+        </button>
+        <button onClick={mutate} className='w-10 h-10' disabled={mutateLoading}>
+          <HeartIcon className={`w-full h-full ${data.like ? 'text-red-500' : 'text-gray-500'}`} />
+        </button>
       </div>
     </Fragment>
-  )
+  );
 }
 
-export default withAuth(Song)
+export default withAuth(Song);
