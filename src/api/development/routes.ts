@@ -1,7 +1,7 @@
 import { rest, RestHandler } from 'msw';
 import url from './Utilities/name';
 import { getUserInfo, SignIn, SignUp } from './Controllers/user';
-import { getMusicById, getMusicsBySkip } from './Controllers/musics';
+import {getMusicById, getMusicsBySkip, setLike} from './Controllers/musics';
 import { getPlaylistById, getPlaylistBySkip } from './Controllers/playlist';
 
 const handlers: RestHandler[] = [
@@ -12,6 +12,7 @@ const handlers: RestHandler[] = [
   rest.get(url`/musics/getBySkip`, getMusicsBySkip),
   rest.get(url`/playlists/getById`, getPlaylistById),
   rest.get(url`/playlists/getBySkip`, getPlaylistBySkip),
+  rest.post(url`/musics/setLike`, setLike),
 ];
 
 export default handlers;
