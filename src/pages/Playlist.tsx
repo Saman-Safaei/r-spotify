@@ -1,4 +1,4 @@
-import { PlayIcon } from '@heroicons/react/24/solid';
+import {EllipsisHorizontalIcon, HeartIcon, PlayIcon} from '@heroicons/react/24/solid';
 import { Fragment, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { usePlaylist } from '../hooks/playlist';
@@ -40,9 +40,17 @@ function Playlist() {
         </div>
       </div>
       <div className='p-4'>
-        <button onClick={playMusicsOfPlaylistHandler} className='block w-14 h-14 p-4 rounded-full bg-green-500 hover:bg-green-400 text-black mb-8'>
-          <PlayIcon className='w-full h-full' />
-        </button>
+        <div className='flex items-center gap-4 mb-8'>
+          <button onClick={playMusicsOfPlaylistHandler} className='block w-14 h-14 p-4 rounded-full bg-green-500 hover:bg-green-400 text-black'>
+            <PlayIcon className='w-full h-full' />
+          </button>
+          <button className="w-10 h-10 ml-auto">
+            <EllipsisHorizontalIcon className="w-full h-full" />
+          </button>
+          <button className="w-10 h-10">
+            <HeartIcon className="w-full h-full text-red-500" />
+          </button>
+        </div>
         <div className='overflow-auto c-scroll'>
           <table className='min-w-full whitespace-nowrap'>
             <thead className='text-start font-normal text-gray-400 border-solid border-b border-b-white/10'>
