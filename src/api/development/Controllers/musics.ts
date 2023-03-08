@@ -26,3 +26,17 @@ export async function getMusicsBySkip(req: RestRequest, res: ResponseComposition
 
   return res(ctx.json(musics), ctx.status(200));
 }
+
+export async function setLike(req: RestRequest, res: ResponseComposition, ctx: RestContext) {
+  const { likeId } = await req.json();
+
+  if (typeof likeId === 'undefined' || isNaN(+likeId)) return res(ctx.status(400));
+
+  const music = Musics.find(music => music.id === +likeId);
+
+  if (!music) return res(ctx.status(404));
+
+  music.like = !music.like;
+
+  return res(ctx.status(200));
+}
