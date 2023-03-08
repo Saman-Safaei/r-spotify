@@ -2,7 +2,7 @@ const musics: MockMusic[] = [
   {
     id: 0,
     musicFile: 'musics/lord_of_cinder.mp3',
-    like: 0,
+    like: false,
     duration: 324,
     title: 'Gwyn - The Lord of Cinder',
     imageCover: 'images/DarkSoulsCover.jpg',
@@ -18,7 +18,7 @@ const musics: MockMusic[] = [
   {
     id: 1,
     musicFile: 'musics/knight_artorias.mp3',
-    like: 0,
+    like: false,
     duration: 304,
     title: 'Knight Artorias',
     imageCover: 'images/DarkSoulsCover.jpg',
@@ -34,7 +34,7 @@ const musics: MockMusic[] = [
   {
     id: 2,
     musicFile: 'musics/ornstein_and_smough.mp3',
-    like: 0,
+    like: true,
     duration: 324,
     title: 'Ornstein & Smough',
     imageCover: 'images/DarkSoulsCover.jpg',
