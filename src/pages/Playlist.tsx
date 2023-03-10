@@ -29,7 +29,7 @@ function Playlist() {
         </div>
         <div className='flex flex-col items-center sm:items-start gap-3 text-center sm:text-start'>
           <h4 className='text-xs'>Playlist</h4>
-          <h3 className='text-4xl sm:text-6xl font-bold text-white'>{response?.data.name || 'Loading ...'}</h3>
+          <h3 className='text-4xl sm:text-6xl font-bold text-white'>{response?.data.title || 'Loading ...'}</h3>
           <p className='text-gray-300'>{response?.data.description}</p>
           <h5 className='text-gray-300'>
             {response?.data.musics.length || '?'} Songs,{' '}
