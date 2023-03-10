@@ -16,6 +16,7 @@ interface MockMusic {
     lastname: string;
     profilephoto: string;
   };
+  category: string;
   album: string;
 }
 
@@ -116,7 +117,7 @@ interface CtxUserState {
 
 interface MockPlaylist {
   id: number;
-  name: string;
+  title: string;
   description: string;
   imageCover: string;
   category: string;
@@ -131,4 +132,10 @@ interface MockLimitedPlaylist {
   imageCover: string;
   category: string;
   musics: string[];
+}
+
+interface SearchParams {
+  query?: string;
+  category?: string;
+  pageParam: number;
 }
