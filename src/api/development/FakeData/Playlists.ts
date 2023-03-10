@@ -3,8 +3,8 @@ const playlists: MockPlaylist[] = [
     id: 0,
     imageCover: 'images/DarkSoulsCover.jpg',
     description: 'The soundtracks in Dark Souls - Artorias of Abyss edition.',
-    name: 'Dark Souls - Artorias of Abyss Edition',
-    category: 'game',
+    title: 'Dark Souls - Artorias of Abyss Edition',
+    category: 'Game',
     like: false,
     musics: [
       {
@@ -16,6 +16,7 @@ const playlists: MockPlaylist[] = [
         imageCover: 'images/DarkSoulsCover.jpg',
         publishDate: '1401/04/05',
         album: 'Dark Souls 1',
+        category: "Soundtrack",
         singer: {
           id: 0,
           profilephoto: 'images/DarkSoulsCover.jpg',
@@ -32,6 +33,7 @@ const playlists: MockPlaylist[] = [
         imageCover: 'images/DarkSoulsCover.jpg',
         publishDate: '1401/04/05',
         album: 'Dark Souls 1',
+        category: "Soundtrack",
         singer: {
           id: 0,
           firstname: 'John',
@@ -48,6 +50,7 @@ const playlists: MockPlaylist[] = [
         imageCover: 'images/DarkSoulsCover.jpg',
         publishDate: '1401/04/05',
         album: 'Dark Souls 1',
+        category: "Soundtrack",
         singer: {
           id: 0,
           profilephoto: 'images/DarkSoulsCover.jpg',
