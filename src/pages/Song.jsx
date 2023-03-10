@@ -9,18 +9,18 @@ import { useMusicLike } from '../hooks/likes';
 function Song() {
   const params = useParams();
   const navigate = useNavigate();
-  const pageId = +params.id;
-  const { data, isLoading, isError, refetch } = useSongById(pageId);
+
+  const { data, isLoading, isError, refetch } = useSongById(+params.id);
   const musicCtx = useContext(musicSlice);
 
   useEffect(() => {
-    if (isNaN(pageId)) navigate(-1);
-  }, []);
+    if (isNaN(+params.id)) navigate(-1);
+  }, [params, navigate]);
 
   const {
     mutate,
     isLoading: mutateLoading
-  } = useMusicLike(pageId, () => {
+  } = useMusicLike(+params.id, () => {
     refetch().then();
   });
 
@@ -58,7 +58,7 @@ function Song() {
           <EllipsisHorizontalIcon className='w-full h-full text-white' />
         </button>
         <button onClick={mutate} className='w-10 h-10' disabled={mutateLoading}>
-          <HeartIcon className={`w-full h-full ${data.like ? 'text-red-500' : 'text-gray-500'}`} />
+          <HeartIcon className={`w-full h-full ${data.like ? 'text-red-500' : 'text-gray-500'} transition-all duration-500`} />
         </button>
       </div>
     </Fragment>
