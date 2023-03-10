@@ -1,0 +1,43 @@
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { search } from '../api/search';
+import { AxiosError } from 'axios';
+import { useEffect, useState, useRef, useCallback } from 'react';
+
+export function useSearch() {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const [query, setQuery] = useState<string | undefined>();
+  const [category, setCategory] = useState<string | undefined>();
+
+  const { data, refetch, fetchNextPage } = useInfiniteQuery<RQueryData<(MockPlaylist | MockMusic)[]>, AxiosError>({
+    queryFn: ({ pageParam = 1 }) => search({ query, category, pageParam }),
+    getNextPageParam(lastPage, allPages) {
+      if (lastPage.data.length < 10) return undefined;
+      return allPages.length + 1;
+    },
+  });
+
+  const flatData = data?.pages.map(res => res.data).flat();
+
+  const queryChangeHandler = useCallback(() => {
+    let timeout: Optional<ReturnType<typeof setTimeout>> = undefined;
+
+    return () => {
+      if (timeout) {
+        clearTimeout(timeout);
+        timeout = undefined;
+      }
+      if (!timeout)
+        timeout = setTimeout(() => {
+          if (inputRef.current) setQuery(inputRef.current.value);
+          timeout = undefined;
+        }, 500);
+    };
+  }, []);
+
+  useEffect(() => {
+    refetch().then();
+  }, [category, query, refetch]);
+
+  return { data: flatData, nextPage: fetchNextPage, onQueryChange: queryChangeHandler(), inputRef, setCategory };
+}
