@@ -34,7 +34,7 @@ export async function getPlaylistBySkip(req: RestRequest, res: ResponseCompositi
     category: playlist.category,
     musics: playlist.musics.map(music => music.musicFile),
     description: playlist.description,
-    name: playlist.name,
+    name: playlist.title,
     imageCover: playlist.imageCover,
   }));
 
