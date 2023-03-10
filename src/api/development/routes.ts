@@ -1,8 +1,9 @@
 import { rest, RestHandler } from 'msw';
 import url from './Utilities/name';
 import { getUserInfo, SignIn, SignUp } from './Controllers/user';
-import {getMusicById, getMusicsBySkip, setLike} from './Controllers/musics';
+import { getMusicById, getMusicsBySkip, setLike } from './Controllers/musics';
 import { getPlaylistById, getPlaylistBySkip } from './Controllers/playlist';
+import { search } from './Controllers/search';
 
 const handlers: RestHandler[] = [
   rest.post(url`/auth/signin`, SignIn),
@@ -13,6 +14,7 @@ const handlers: RestHandler[] = [
   rest.get(url`/playlists/getById`, getPlaylistById),
   rest.get(url`/playlists/getBySkip`, getPlaylistBySkip),
   rest.post(url`/musics/setLike`, setLike),
+  rest.get(url`/search`, search), // need <q> in query params - ( /search?q=Metal )
 ];
 
 export default handlers;
