@@ -8,7 +8,10 @@ const musics: MockMusic[] = [
     imageCover: 'images/DarkSoulsCover.jpg',
     publishDate: '1401/04/05',
     album: 'Dark Souls 1',
-    category: 'Soundtrack',
+    category: {
+      id: 0,
+      name: 'Soundtrack',
+    },
     singer: {
       id: 0,
       profilephoto: 'images/DarkSoulsCover.jpg',
@@ -25,7 +28,10 @@ const musics: MockMusic[] = [
     imageCover: 'images/DarkSoulsCover.jpg',
     publishDate: '1401/04/05',
     album: 'Dark Souls 1',
-    category: 'Soundtrack',
+    category:{
+      id: 0,
+      name: 'Soundtrack',
+    },
     singer: {
       id: 0,
       firstname: 'John',
@@ -42,7 +48,10 @@ const musics: MockMusic[] = [
     imageCover: 'images/DarkSoulsCover.jpg',
     publishDate: '1401/04/05',
     album: 'Dark Souls 1',
-    category: 'Soundtrack',
+    category:{
+      id: 0,
+      name: 'Soundtrack',
+    },
     singer: {
       id: 0,
       profilephoto: 'images/DarkSoulsCover.jpg',
