@@ -29,8 +29,6 @@ export async function SignUp(req: RestRequest, res: ResponseComposition, ctx: Re
     email: requestBody.email,
     playlists: [],
     username: requestBody.username,
-    firstname: 'John',
-    lastname: 'Doe',
     password: requestBody.password,
   };
 
@@ -42,11 +40,11 @@ export async function SignUp(req: RestRequest, res: ResponseComposition, ctx: Re
 // -------------------------------------- User Info -----------------------------------------------
 
 export async function getUserInfo(req: RestRequest, res: ResponseComposition, ctx: RestContext) {
-  const requestBody = await req.json<GetUserInfoBody>();
+  const token = await req.headers.get("Bearer");
 
-  if (!requestBody.token) return res(ctx.status(403));
+  if (!token || isNaN(+token)) return res(ctx.status(403));
 
-  const fakeUser = FakeUsers.find(fakeUser => fakeUser.id === +requestBody.token);
+  const fakeUser = FakeUsers.find(fakeUser => fakeUser.id === +token);
 
   if (!fakeUser) return res(ctx.status(403));
 
