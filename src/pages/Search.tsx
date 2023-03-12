@@ -4,7 +4,7 @@ import MusicItem from '../components/Music/MusicItem';
 import PlayListItem from '../components/Playlist/PlayListItem';
 
 function Search() {
-  const { data, onQueryChange, inputRef } = useSearch();
+  const { data, onQueryChange, inputRef, nextPage, hasNextPage } = useSearch();
 
   return (
     <div className='py-4 px-6'>
@@ -38,6 +38,11 @@ function Search() {
             );
         })}
       </GridContainer>
+      {hasNextPage && (
+        <button className='block mx-auto bg-green-600 py-2 px-4 rounded-md my-2' onClick={() => nextPage()}>
+          Load More
+        </button>
+      )}
     </div>
   );
 }
