@@ -14,7 +14,7 @@ const handlers: RestHandler[] = [
   rest.get(url`/playlists/getById`, getPlaylistById),
   rest.get(url`/playlists/getBySkip`, getPlaylistBySkip),
   rest.post(url`/musics/setLike`, setLike),
-  rest.get(url`/search`, search), // need <q> in query params - ( /search?q=Metal )
+  rest.get(url`/search`, search), // need <q> in query params - ( /search?q=Metal&category=Soundtrack )
 ];
 
 export default handlers;
