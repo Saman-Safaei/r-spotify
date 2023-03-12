@@ -9,12 +9,17 @@ export function useSearch() {
   const [query, setQuery] = useState<string | undefined>();
   const [category, setCategory] = useState<string | undefined>();
 
-  const { data, refetch, fetchNextPage } = useInfiniteQuery<RQueryData<(MockPlaylist | MockMusic)[]>, AxiosError>({
-    queryFn: ({ pageParam = 1 }) => search({ query, category, pageParam }),
+  const { data, refetch, fetchNextPage, hasNextPage } = useInfiniteQuery<
+    RQueryData<(MockPlaylist | MockMusic)[]>,
+    AxiosError
+  >({
+    queryFn: ({ pageParam = 0 }) => search({ query, category, pageParam }),
     getNextPageParam(lastPage, allPages) {
       if (lastPage.data.length < 10) return undefined;
-      return allPages.length + 1;
+      return allPages.length * 10;
     },
+    keepPreviousData: false,
+    queryKey: [],
   });
 
   const flatData = data?.pages.map(res => res.data).flat();
@@ -39,5 +44,12 @@ export function useSearch() {
     refetch().then();
   }, [category, query, refetch]);
 
-  return { data: flatData, nextPage: fetchNextPage, onQueryChange: queryChangeHandler(), inputRef, setCategory };
+  return {
+    data: flatData,
+    nextPage: fetchNextPage,
+    onQueryChange: queryChangeHandler(),
+    inputRef,
+    setCategory,
+    hasNextPage,
+  };
 }
