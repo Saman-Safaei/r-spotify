@@ -9,7 +9,7 @@ export const search = ({
   if (query) url.set('q', query);
   if (category) url.set('category', category);
   
-  url.set('page', pageParam.toString());
+  url.set('skip', pageParam.toString());
 
   return fetcher.get(`/search?${url.toString()}`).then(res => ({
     data: res.data,
