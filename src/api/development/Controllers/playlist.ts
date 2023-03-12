@@ -22,23 +22,40 @@ export async function getPlaylistBySkip(req: RestRequest, res: ResponseCompositi
   const takeString = req.url.searchParams.get('take');
   const categoryString = req.url.searchParams.get('category');
 
-  if (!skipString || !takeString || !categoryString) return res(ctx.status(400));
+  if (!skipString || !takeString) return res(ctx.status(400));
 
   const skipNum = +skipString;
   const takeNum = +takeString;
 
   if (isNaN(skipNum) || isNaN(takeNum)) return res(ctx.status(400));
 
-  const playlists: MockLimitedPlaylist[] = Playlists.slice(skipNum, skipNum + takeNum).map(playlist => ({
-    id: playlist.id,
-    category: playlist.category,
-    musics: playlist.musics.map(music => music.musicFile),
-    description: playlist.description,
-    name: playlist.title,
-    imageCover: playlist.imageCover,
-  }));
+  let playlists: MockLimitedPlaylist[] = [];
 
-  const filteredPlaylists = playlists.filter(playlist => playlist.category === categoryString);
+  if (categoryString) {
+    const categoryNum = +categoryString;
 
-  return res(ctx.json(categoryString === 'all' ? playlists : filteredPlaylists));
+    if (isNaN(categoryNum)) return res(ctx.status(400));
+
+    playlists = Playlists.filter(playlist => playlist.category.id === categoryNum)
+      .slice(skipNum, skipNum + takeNum)
+      .map(playlist => ({
+        id: playlist.id,
+        category: playlist.category,
+        musics: playlist.musics.map(music => music.musicFile),
+        description: playlist.description,
+        name: playlist.title,
+        imageCover: playlist.imageCover,
+      }));
+  } else {
+    playlists = Playlists.slice(skipNum, skipNum + takeNum).map(playlist => ({
+      id: playlist.id,
+      category: playlist.category,
+      musics: playlist.musics.map(music => music.musicFile),
+      description: playlist.description,
+      name: playlist.title,
+      imageCover: playlist.imageCover,
+    }));
+  }
+
+  return res(ctx.json(playlists));
 }
