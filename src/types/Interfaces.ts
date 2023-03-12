@@ -16,8 +16,13 @@ interface MockMusic {
     lastname: string;
     profilephoto: string;
   };
-  category: string;
+  category: MockCategory;
   album: string;
+}
+
+interface MockCategory {
+  name: string;
+  id: number;
 }
 
 interface SignInBody {
@@ -40,8 +45,6 @@ interface MockSinger {
 
 interface MockUser {
   id: number;
-  firstname: string;
-  lastname: string;
   email: string;
   username: string;
   password: string;
@@ -120,7 +123,7 @@ interface MockPlaylist {
   title: string;
   description: string;
   imageCover: string;
-  category: string;
+  category: MockCategory;
   like: boolean;
   musics: MockMusic[];
 }
@@ -130,7 +133,7 @@ interface MockLimitedPlaylist {
   name: string;
   description: string;
   imageCover: string;
-  category: string;
+  category: MockCategory;
   musics: string[];
 }
 
