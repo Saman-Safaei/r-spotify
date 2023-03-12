@@ -3,7 +3,7 @@ import PlayListItem from '../components/Playlist/PlayListItem';
 import { usePlaylists } from '../hooks/playlist';
 
 function Home() {
-  const { data, isSuccess } = usePlaylists(0, 4, 'all');
+  const { data, isSuccess } = usePlaylists(0, 4);
 
   return (
     <div className='flex flex-col items-stretch gap-4 py-4 px-6'>
