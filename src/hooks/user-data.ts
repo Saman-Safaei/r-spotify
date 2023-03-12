@@ -8,7 +8,7 @@ export default function useUserData(
   logoutUser: () => void
 ) {
   const { error, isError } = useQuery<{ data: any; statusCode: number }, AxiosError>({
-    queryFn: () => userData(localStorage.getItem('token')),
+    queryFn: userData,
     refetchInterval: 20000,
     enabled: isLogged,
     onSuccess: response => setUser(response.data.username, response.data.email),
