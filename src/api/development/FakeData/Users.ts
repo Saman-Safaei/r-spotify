@@ -1,8 +1,6 @@
 const users: MockUser[] = [
   {
     id: 0,
-    firstname: 'Saman',
-    lastname: 'Safaei',
     email: 'xsamansafaeix@gmail.com',
     username: 'SamanDev',
     playlists: [],
@@ -10,8 +8,6 @@ const users: MockUser[] = [
   },
   {
     id: 1,
-    firstname: 'Ali',
-    lastname: 'Karimi',
     email: 'AliKarimi@gmail.com',
     username: 'AliFake',
     playlists: [],
