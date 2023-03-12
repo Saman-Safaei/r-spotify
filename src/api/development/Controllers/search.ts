@@ -7,16 +7,22 @@ export function search(req: RestRequest, res: ResponseComposition, ctx: RestCont
 
   const queryParam = req.url.searchParams.get('q');
   const categoryParam = req.url.searchParams.get('category');
+  const skipParam = req.url.searchParams.get('skip');
+
+  if (!skipParam || isNaN(+skipParam)) return res(ctx.status(400));
 
   if (queryParam)
     responseArray = responseArray.filter(
       responseItem => responseItem.title.toLowerCase().search(queryParam.toLowerCase()) !== -1
     );
 
-  if (categoryParam)
-    responseArray = responseArray.filter(
-      responseItem => responseItem.category.toLowerCase().search(categoryParam.toLowerCase()) !== -1
-    );
+  if (categoryParam) {
+    const categoryId = +categoryParam;
+    if (isNaN(categoryId)) return res(ctx.status(400));
+    responseArray = responseArray.filter(responseItem => responseItem.category.id === categoryId);
+  }
+  
+  responseArray = responseArray.slice(+skipParam, +skipParam + 10);
 
   return res(ctx.json(responseArray));
 }
