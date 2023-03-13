@@ -55,7 +55,7 @@ function Home() {
           playable={false}
         />
         {isSuccess
-          ? data.map(playList => (
+          ? data?.map(playList => (
               <PlayListItem
                 key={playList.id}
                 href={`/playlist/${playList.id}`}
