@@ -152,6 +152,6 @@ interface MockLimitedPlaylist {
 
 interface SearchParams {
   query?: string;
-  category?: string;
+  category: number;
   pageParam: number;
 }
