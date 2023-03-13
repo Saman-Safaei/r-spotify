@@ -9,11 +9,11 @@ const handlers: RestHandler[] = [
   rest.post(url`/auth/signin`, SignIn),
   rest.post(url`/auth/signup`, SignUp),
   rest.post(url`/auth/getUserInfo`, getUserInfo),
-  rest.post(url`/musics/getById`, getMusicById),
-  rest.get(url`/musics/getBySkip`, getMusicsBySkip),
-  rest.get(url`/playlists/getById`, getPlaylistById),
-  rest.get(url`/playlists/getBySkip`, getPlaylistBySkip),
-  rest.post(url`/musics/setLike`, setLike),
+  rest.get(url`/music/getById`, getMusicById),
+  rest.get(url`/music/getBySkip`, getMusicsBySkip),
+  rest.get(url`/playlist/getById`, getPlaylistById),
+  rest.get(url`/playlist/getBySkip`, getPlaylistBySkip),
+  rest.post(url`/music/like`, setLike),
   rest.get(url`/search`, search), // need <q> in query params - ( /search?q=Metal&category=Soundtrack )
 ];
 
