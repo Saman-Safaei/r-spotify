@@ -1,5 +1,5 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { search } from '../api/search';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { categories, search } from '../api/search';
 import { AxiosError } from 'axios';
 import { useEffect, useState, useRef, useCallback } from 'react';
 
@@ -7,7 +7,7 @@ export function useSearch() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [query, setQuery] = useState<string | undefined>();
-  const [category, setCategory] = useState<string | undefined>();
+  const [category, setCategory] = useState<number>(-1);
 
   const { data, refetch, fetchNextPage, hasNextPage } = useInfiniteQuery<
     RQueryData<(MockPlaylist | MockMusic)[]>,
@@ -18,7 +18,6 @@ export function useSearch() {
       if (lastPage.data.length < 10) return undefined;
       return allPages.length * 10;
     },
-    keepPreviousData: false,
     queryKey: [],
   });
 
@@ -43,13 +42,28 @@ export function useSearch() {
   useEffect(() => {
     refetch().then();
   }, [category, query, refetch]);
+  
+  const setCategoryHandler = (id: number) => {
+    console.log(id)
+    setCategory(id);
+    refetch();
+  }
 
   return {
     data: flatData,
     nextPage: fetchNextPage,
     onQueryChange: queryChangeHandler(),
     inputRef,
-    setCategory,
+    setCategory: setCategoryHandler,
     hasNextPage,
   };
+}
+
+export function useCategories() {
+  const { data, isError } = useQuery<RQueryData<MockLimitedCategory[]>, AxiosError>({
+    queryFn: categories,
+    queryKey: ['categories'],
+  });
+
+  return { response: data, isError };
 }
