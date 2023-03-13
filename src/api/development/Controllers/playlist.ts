@@ -1,5 +1,15 @@
 import { ResponseComposition, RestRequest, RestContext } from 'msw';
 import Playlists from '../FakeData/Playlists';
+import Musics from '../FakeData/Musics';
+import Categories from '../FakeData/Categories';
+import Albums from '../FakeData/Albums';
+import Singers from '../FakeData/Singers';
+
+const mockSingers = Singers();
+const mockAlbums = Albums();
+const mockCategories = Categories();
+const mockMusics = Musics(mockAlbums, mockCategories, mockSingers);
+const mockPlaylists = Playlists(mockMusics, mockCategories);
 
 export async function getPlaylistById(req: RestRequest, res: ResponseComposition, ctx: RestContext) {
   const playlistIdString = req.url.searchParams.get('id');
@@ -10,7 +20,7 @@ export async function getPlaylistById(req: RestRequest, res: ResponseComposition
 
   if (isNaN(playlistId)) return res(ctx.status(400));
 
-  const playlist = Playlists.find(playlist => playlist.id === playlistId);
+  const playlist = mockPlaylists.find(playlist => playlist.id === playlistId);
 
   if (!playlist) return res(ctx.status(404));
 
@@ -33,7 +43,7 @@ export async function getPlaylistBySkip(req: RestRequest, res: ResponseCompositi
   let playlists: MockLimitedPlaylist[] = [];
 
   if (categoryNum >= 0) {
-    playlists = Playlists.filter(playlist => playlist.category.id === categoryNum)
+    playlists = mockPlaylists.filter(playlist => playlist.category.id === categoryNum)
       .slice(skipNum, skipNum + takeNum)
       .map(playlist => ({
         id: playlist.id,
@@ -44,7 +54,7 @@ export async function getPlaylistBySkip(req: RestRequest, res: ResponseCompositi
         imageCover: playlist.imageCover,
       }));
   } else {
-    playlists = Playlists.slice(skipNum, skipNum + takeNum).map(playlist => ({
+    playlists = mockPlaylists.slice(skipNum, skipNum + takeNum).map(playlist => ({
       id: playlist.id,
       category: playlist.category,
       musics: playlist.musics.map(music => music.musicFile),

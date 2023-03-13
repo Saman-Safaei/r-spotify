@@ -1,11 +1,13 @@
 import { ResponseComposition, RestContext, RestRequest } from 'msw';
 import FakeUsers from '../FakeData/Users';
 
+const mockFakeUsers = FakeUsers()
+
 // --------------------------------------- Sign in ------------------------------------------------
 
 export async function SignIn(req: RestRequest, res: ResponseComposition, ctx: RestContext) {
   const requestBody = await req.json<SignInBody>();
-  const fakeUser = FakeUsers.find(fakeUser => fakeUser.username === requestBody.username);
+  const fakeUser = mockFakeUsers.find(fakeUser => fakeUser.username === requestBody.username);
 
   if (!fakeUser) {
     return res(ctx.status(404));
@@ -31,8 +33,8 @@ export async function SignUp(req: RestRequest, res: ResponseComposition, ctx: Re
     username: requestBody.username,
     password: requestBody.password,
   };
-
-  FakeUsers.push(user);
+  
+  mockFakeUsers.push(user);
 
   return res(ctx.status(200), ctx.json({ token: userID }));
 }
@@ -44,7 +46,7 @@ export async function getUserInfo(req: RestRequest, res: ResponseComposition, ct
 
   if (!token || isNaN(+token)) return res(ctx.status(403));
 
-  const fakeUser = FakeUsers.find(fakeUser => fakeUser.id === +token);
+  const fakeUser = mockFakeUsers.find(fakeUser => fakeUser.id === +token);
 
   if (!fakeUser) return res(ctx.status(403));
 
