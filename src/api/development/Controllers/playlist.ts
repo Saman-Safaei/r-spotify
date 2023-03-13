@@ -22,20 +22,17 @@ export async function getPlaylistBySkip(req: RestRequest, res: ResponseCompositi
   const takeString = req.url.searchParams.get('take');
   const categoryString = req.url.searchParams.get('category');
 
-  if (!skipString || !takeString) return res(ctx.status(400));
+  if (!skipString || !takeString || !categoryString) return res(ctx.status(400));
 
   const skipNum = +skipString;
   const takeNum = +takeString;
+  const categoryNum = +categoryString;
 
-  if (isNaN(skipNum) || isNaN(takeNum)) return res(ctx.status(400));
+  if (isNaN(skipNum) || isNaN(takeNum) || isNaN(categoryNum)) return res(ctx.status(400));
 
   let playlists: MockLimitedPlaylist[] = [];
 
-  if (categoryString) {
-    const categoryNum = +categoryString;
-
-    if (isNaN(categoryNum)) return res(ctx.status(400));
-
+  if (categoryNum >= 0) {
     playlists = Playlists.filter(playlist => playlist.category.id === categoryNum)
       .slice(skipNum, skipNum + takeNum)
       .map(playlist => ({
