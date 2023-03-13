@@ -10,17 +10,26 @@ interface MockMusic {
   musicFile: string;
   publishDate: string;
   like: boolean;
-  singer: {
-    id: number;
-    firstname: string;
-    lastname: string;
-    profilephoto: string;
-  };
-  category: MockCategory;
-  album: string;
+  singer: MockLimitedSinger;
+  category: MockLimitedCategory;
+  album: MockLimitedAlbum;
 }
 
-interface MockCategory {
+interface MockLimitedCategory {
+  name: string;
+  id: number;
+}
+
+interface MockCategory extends MockLimitedCategory {
+  musics: MockMusic[];
+}
+
+interface MockAlbum extends MockLimitedAlbum {
+  musics: MockMusic;
+  singer: MockLimitedSinger;
+}
+
+interface MockLimitedAlbum {
   name: string;
   id: number;
 }
@@ -36,11 +45,15 @@ interface SignUpBody {
   password: string;
 }
 
-interface MockSinger {
+interface MockSinger extends MockLimitedSinger{
+  musics: number[];
+}
+
+interface MockLimitedSinger {
   id: number;
   firstname: string;
   lastname: string;
-  musics: number[];
+  profilephoto: string;
 }
 
 interface MockUser {
@@ -123,7 +136,7 @@ interface MockPlaylist {
   title: string;
   description: string;
   imageCover: string;
-  category: MockCategory;
+  category: MockLimitedCategory;
   like: boolean;
   musics: MockMusic[];
 }
@@ -133,7 +146,7 @@ interface MockLimitedPlaylist {
   name: string;
   description: string;
   imageCover: string;
-  category: MockCategory;
+  category: MockLimitedCategory;
   musics: string[];
 }
 
