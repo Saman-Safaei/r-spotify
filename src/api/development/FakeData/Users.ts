@@ -1,4 +1,4 @@
-const users: MockUser[] = [
+const users = (): MockUser[] => [
   {
     id: 0,
     email: 'xsamansafaeix@gmail.com',
