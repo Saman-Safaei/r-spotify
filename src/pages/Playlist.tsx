@@ -71,7 +71,7 @@ function Playlist() {
                   musicCover={`${process.env.REACT_APP_FILE_URL}/${music.imageCover}`}
                   musicName={music.title}
                   singerName={music.singer.firstname}
-                  albumName={music.album}
+                  albumName={music.album.name}
                   uploadDay={music.publishDate}
                   musicDuration={music.duration}
                 />
