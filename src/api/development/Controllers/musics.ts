@@ -2,11 +2,11 @@ import { ResponseComposition, RestContext, RestRequest } from 'msw';
 import Musics from '../FakeData/Musics';
 
 export async function getMusicById(req: RestRequest, res: ResponseComposition, ctx: RestContext) {
-  const requestBody = await req.json<GetMusicByIdBody>();
+  const musicIdString = req.url.searchParams.get('id');
+  
+  if (!musicIdString || isNaN(+musicIdString)) return res(ctx.status(400));
 
-  if (typeof requestBody.id === 'undefined') return res(ctx.status(400));
-
-  const music = Musics.find(music => music.id === requestBody.id);
+  const music = Musics.find(music => music.id === +musicIdString);
 
   if (!music) return res(ctx.status(404));
 
