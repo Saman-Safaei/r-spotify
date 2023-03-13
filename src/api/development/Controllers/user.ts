@@ -40,7 +40,7 @@ export async function SignUp(req: RestRequest, res: ResponseComposition, ctx: Re
 // -------------------------------------- User Info -----------------------------------------------
 
 export async function getUserInfo(req: RestRequest, res: ResponseComposition, ctx: RestContext) {
-  const token = await req.headers.get("Bearer");
+  const token = await req.headers.get("Authorization");
 
   if (!token || isNaN(+token)) return res(ctx.status(403));
 
