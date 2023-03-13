@@ -7,7 +7,10 @@ const musics: MockMusic[] = [
     title: 'Gwyn - The Lord of Cinder',
     imageCover: 'images/DarkSoulsCover.jpg',
     publishDate: '1401/04/05',
-    album: 'Dark Souls 1',
+    album: {
+      id: 0,
+      name: 'Dark Souls 1',
+    },
     category: {
       id: 0,
       name: 'Soundtrack',
@@ -27,8 +30,11 @@ const musics: MockMusic[] = [
     title: 'Knight Artorias',
     imageCover: 'images/DarkSoulsCover.jpg',
     publishDate: '1401/04/05',
-    album: 'Dark Souls 1',
-    category:{
+    album: {
+      id: 0,
+      name: 'Dark Souls 1',
+    },
+    category: {
       id: 0,
       name: 'Soundtrack',
     },
@@ -47,8 +53,11 @@ const musics: MockMusic[] = [
     title: 'Ornstein & Smough',
     imageCover: 'images/DarkSoulsCover.jpg',
     publishDate: '1401/04/05',
-    album: 'Dark Souls 1',
-    category:{
+    album: {
+      id: 0,
+      name: 'Dark Souls 1',
+    },
+    category: {
       id: 0,
       name: 'Soundtrack',
     },

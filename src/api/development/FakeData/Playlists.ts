@@ -5,7 +5,7 @@ const playlists: MockPlaylist[] = [
     description: 'The soundtracks in Dark Souls - Artorias of Abyss edition.',
     title: 'Dark Souls - Artorias of Abyss Edition',
     category: {
-      id: 0,
+      id: 1,
       name: 'Game',
     },
     like: false,
@@ -18,7 +18,10 @@ const playlists: MockPlaylist[] = [
         title: 'Gwyn - The Lord of Cinder',
         imageCover: 'images/DarkSoulsCover.jpg',
         publishDate: '1401/04/05',
-        album: 'Dark Souls 1',
+        album: {
+          id: 0,
+          name: 'Dark Souls 1',
+        },
         category: {
           id: 0,
           name: 'Soundtrack',
@@ -38,7 +41,10 @@ const playlists: MockPlaylist[] = [
         title: 'Knight Artorias',
         imageCover: 'images/DarkSoulsCover.jpg',
         publishDate: '1401/04/05',
-        album: 'Dark Souls 1',
+        album: {
+          id: 0,
+          name: 'Dark Souls 1',
+        },
         category: {
           id: 0,
           name: 'Soundtrack',
@@ -58,7 +64,10 @@ const playlists: MockPlaylist[] = [
         title: 'Ornstein & Smough',
         imageCover: 'images/DarkSoulsCover.jpg',
         publishDate: '1401/04/05',
-        album: 'Dark Souls 1',
+        album: {
+          id: 0,
+          name: 'Dark Souls 1',
+        },
         category: {
           id: 0,
           name: 'Soundtrack',
