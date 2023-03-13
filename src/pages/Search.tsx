@@ -1,15 +1,23 @@
-import { useSearch } from '../hooks/search';
+import { useCategories, useSearch } from '../hooks/search';
 import GridContainer from '../components/UI/GridContainer';
 import MusicItem from '../components/Music/MusicItem';
 import PlayListItem from '../components/Playlist/PlayListItem';
+import Chip from '../components/Pages/Search/Chip';
 
 function Search() {
-  const { data, onQueryChange, inputRef, nextPage, hasNextPage } = useSearch();
+  const { data, onQueryChange, inputRef, nextPage, hasNextPage, setCategory } = useSearch();
+  const { response, isError } = useCategories();
 
   return (
     <div className='py-4 px-6'>
-      <div className='bg-black/20 rounded'>
+      <div className='bg-black/30 rounded'>
         <input className='w-full py-4 px-4' ref={inputRef} onInput={onQueryChange} type='text' placeholder='Search' />
+      </div>
+      <div className='flex flex-wrap gap-2 py-2'>
+        {response?.data.map(category => (
+          <Chip onClick={() => setCategory(category.id)}>{category.name}</Chip>
+        ))}
+        <Chip onClick={() => setCategory(-1)}>All</Chip>
       </div>
       <GridContainer>
         {data?.map((item, key) => {
