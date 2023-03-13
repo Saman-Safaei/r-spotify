@@ -1,4 +1,4 @@
-const categories: MockLimitedCategory[] = [
+const categories = (): MockLimitedCategory[] => [
   {
     name: 'Game',
     id: 1,
