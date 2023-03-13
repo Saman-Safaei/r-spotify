@@ -1,11 +1,11 @@
 const categories: MockLimitedCategory[] = [
   {
     name: 'Game',
-    id: 0,
+    id: 1,
   },
   {
     name: 'Soundtrack',
-    id: 1,
+    id: 0,
   },
 ];
 
