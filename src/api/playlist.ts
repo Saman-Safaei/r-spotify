@@ -1,17 +1,13 @@
-import fetcher from '.';
+import fetcher, { auth } from '.';
 
-export const getBySkip = (skip: number, count: number, category?: number): RQueryResponse<MockLimitedPlaylist[]> =>
-  fetcher.get(`/playlists/getBySkip?skip=${skip}&take=${count}${category ? `&category=${category}` : ''}`).then(res => ({
+export const getBySkip = (skip: number, count: number, category: number = -1): RQueryResponse<MockLimitedPlaylist[]> =>
+  fetcher.get(`/playlist/getBySkip?skip=${skip}&take=${count}&category=${category}`).then(res => ({
     data: res.data,
     statusCode: res.status,
   }));
 
 export const getById = (id: number): RQueryResponse<MockPlaylist> =>
-  fetcher.get(`/playlists/getById?id=${id}`, {
-    headers: {
-      Bearer: localStorage.getItem('token'),
-    },
-  }).then(res => ({
+  fetcher.get(`/playlist/getById?id=${id}`, auth({})).then(res => ({
     data: res.data,
     statusCode: res.status,
   }));

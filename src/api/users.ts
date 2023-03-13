@@ -1,4 +1,4 @@
-import fetcher from '.';
+import fetcher, {auth} from '.';
 
 export const signup = (signupInfo: any): RQueryResponse =>
   fetcher.post('/auth/signup', signupInfo).then(res => ({
@@ -14,11 +14,7 @@ export const signin = (signinInfo: any): RQueryResponse =>
 
 export const userData = (): RQueryResponse =>
   fetcher
-    .post('/auth/getUserInfo', undefined, {
-      headers: {
-        Bearer: localStorage.getItem('token'),
-      },
-    })
+    .post('/auth/getUserInfo', undefined, auth({}))
     .then(res => ({
       data: res.data,
       statusCode: res.status,
