@@ -1,6 +1,7 @@
 import { RestRequest, RestContext, ResponseComposition } from 'msw';
 import Musics from '../FakeData/Musics';
 import Playlists from '../FakeData/Playlists';
+import Categories from '../FakeData/Categories';
 
 export function search(req: RestRequest, res: ResponseComposition, ctx: RestContext) {
   let responseArray: Array<MockPlaylist | MockMusic> = [...Playlists, ...Musics];
@@ -21,8 +22,12 @@ export function search(req: RestRequest, res: ResponseComposition, ctx: RestCont
     if (isNaN(categoryId)) return res(ctx.status(400));
     responseArray = responseArray.filter(responseItem => responseItem.category.id === categoryId);
   }
-  
+
   responseArray = responseArray.slice(+skipParam, +skipParam + 10);
 
   return res(ctx.json(responseArray));
+}
+
+export async function categories(req: RestRequest, res: ResponseComposition, ctx: RestContext) {
+  return res(ctx.json(Categories));
 }
