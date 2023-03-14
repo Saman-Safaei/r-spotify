@@ -1,18 +1,8 @@
 import { RestRequest, RestContext, ResponseComposition } from 'msw';
-import Playlists from '../FakeData/Playlists';
-import Musics from '../FakeData/Musics';
-import Categories from '../FakeData/Categories';
-import Albums from '../FakeData/Albums';
-import Singers from '../FakeData/Singers';
-
-const mockSingers = Singers();
-const mockAlbums = Albums();
-const mockCategories = Categories();
-const mockMusics = Musics(mockAlbums, mockCategories, mockSingers);
-const mockPlaylists = Playlists(mockMusics, mockCategories);
+import Database from '../FakeData/Database';
 
 export function search(req: RestRequest, res: ResponseComposition, ctx: RestContext) {
-  let responseArray: Array<MockPlaylist | MockMusic> = [...mockPlaylists, ...mockMusics];
+  let responseArray: Array<MockPlaylist | MockMusic> = [...Database.playlists, ...Database.musics];
 
   const queryParam = req.url.searchParams.get('q');
   const categoryParam = req.url.searchParams.get('category');
@@ -35,5 +25,5 @@ export function search(req: RestRequest, res: ResponseComposition, ctx: RestCont
 }
 
 export async function categories(req: RestRequest, res: ResponseComposition, ctx: RestContext) {
-  return res(ctx.json(mockCategories));
+  return res(ctx.json(Database.categories));
 }
