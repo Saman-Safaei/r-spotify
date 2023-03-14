@@ -26,7 +26,7 @@ export default function MusicProvider({ children }: { children: any }) {
     musicApi.current.src = url;
     musicApi.current.play().then();
   }, []);
-  // -------------------------------------------------------------------------------------------------------------------
+
   const loadPlaylistHandler = useCallback((urlList: string[]) => {
     dispatchMusic({ type: actionTypes.LOAD_PLAYLIST, payload: { urlList } });
     if (urlList.length && urlList.length > 0) {
@@ -34,27 +34,27 @@ export default function MusicProvider({ children }: { children: any }) {
       musicApi.current.play().then();
     }
   }, []);
-  // -------------------------------------------------------------------------------------------------------------------
+
   const playMusicHandler = useCallback(() => {
     if (!musicApi.current.src.trim()) return;
 
     dispatchMusic({ type: actionTypes.PLAY_MUSIC });
     musicApi.current.play().then();
   }, []);
-  // -------------------------------------------------------------------------------------------------------------------
+
   const pauseMusicHandler = useCallback(() => {
     dispatchMusic({ type: actionTypes.PAUSE_MUSIC });
     musicApi.current.pause();
   }, []);
-  // -------------------------------------------------------------------------------------------------------------------
+
   const forwardMusicHandler = useCallback(() => {
     musicApi.current.currentTime += 5;
   }, []);
-  // -------------------------------------------------------------------------------------------------------------------
+
   const backwardMusicHandler = useCallback(() => {
     musicApi.current.currentTime -= 5;
   }, []);
-  // -------------------------------------------------------------------------------------------------------------------
+
   const setTimePercentHandler = useCallback(
     (percent: number) => {
       const currentTime = (musicState.currentDuration / 100) * percent;
@@ -65,7 +65,7 @@ export default function MusicProvider({ children }: { children: any }) {
     },
     [musicState.currentDuration]
   );
-  // -------------------------------------------------------------------------------------------------------------------
+
   const musicEndHandler = useCallback(() => {
     dispatchMusic({ type: actionTypes.UPDATE_TIME, payload: { time: 0 } });
     const isPlayingIndex = musicState.musicUrls.indexOf(musicApi.current.src);
@@ -79,7 +79,7 @@ export default function MusicProvider({ children }: { children: any }) {
       dispatchMusic({ type: actionTypes.PAUSE_MUSIC });
     }
   }, [musicState.musicUrls]);
-  // -------------------------------------------------------------------------------------------------------------------
+
   useEffect(() => {
     musicApi.current.addEventListener('loadedmetadata', () => {
       dispatchMusic({ type: actionTypes.INIT_DURATION, payload: { duration: musicApi.current.duration } });
@@ -88,16 +88,16 @@ export default function MusicProvider({ children }: { children: any }) {
     musicApi.current.addEventListener('timeupdate', () => {
       dispatchMusic({ type: actionTypes.UPDATE_TIME, payload: { time: musicApi.current.currentTime } });
     });
-  }, []);
-  // -------------------------------------------------------------------------------------------------------------------
+  }, []); // on mount
+
   useEffect(() => {
     const handler = musicEndHandler;
     musicApi.current.addEventListener('ended', handler);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => musicApi.current.removeEventListener('ended', handler);
-  }, [musicEndHandler]);
-  // -------------------------------------------------------------------------------------------------------------------
+  }, [musicEndHandler]); // on { musicEndHandler } change
+
   const providerValue = {
     musicUrls: musicState.musicUrls,
     isPlaying: musicState.isPlaying,
