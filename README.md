@@ -1,5 +1,5 @@
 # Getting Started with R-Spotify
-This Project requires **<span style="color:yellow;">Node.js</span>** installed on your system.
+This Project requires **Node.js** installed on your system.
 
 ```shell
 $ git clone https://github.com/Saman-Safaei/r-spotify.git
