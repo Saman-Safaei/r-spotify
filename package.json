@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@heroicons/react": "^2.0.13",
+    "@reduxjs/toolkit": "^1.9.3",
     "@tanstack/react-query": "^4.20.9",
     "@types/node": "^18.11.19",
     "@types/react": "^18.0.27",
@@ -14,6 +15,7 @@
     "postcss": "^8.4.20",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
     "react-transition-group": "^4.4.5",
