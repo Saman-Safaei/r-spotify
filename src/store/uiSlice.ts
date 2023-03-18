@@ -1,11 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { StoreState } from '.';
+
+const initialState: CtxUIState = {
+  isSignupShow: false,
+  isSigninShow: false,
+};
 
 const uiSlice = createSlice({
   name: 'ui',
-  initialState: {
-    isSignupShow: false,
-    isSigninShow: false,
-  },
+  initialState: initialState,
   reducers: {
     showSignup: state => {
       state.isSignupShow = true;
@@ -21,10 +24,12 @@ const uiSlice = createSlice({
       state.isSignupShow = false;
     },
     hideSignin: state => {
-      state.isSigninShow = true;
+      state.isSigninShow = false;
     },
   },
 });
 
 export default uiSlice;
 export const { showSignup, hideSignup, hideAll, showSignin, hideSignin } = uiSlice.actions;
+export const selectSignIn = (store: StoreState) => store.ui.isSigninShow;
+export const selectSignUp = (store: StoreState) => store.ui.isSignupShow;
