@@ -1,7 +1,8 @@
 import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Provider } from 'react-redux';
+import store from './store';
 import ReactRouter from './router/ReactRouter';
-import UIProvider from './contexts/ui/UIProvider';
 import UserProvider from './contexts/user/UserProvider';
 import MusicProvider from './contexts/music/MusicProvider';
 import './assets/styles/tailwind.css';
@@ -16,13 +17,13 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 root.render(
-  <QueryClientProvider client={queryClient}>
-    <UserProvider>
-      <MusicProvider>
-        <UIProvider>
+  <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
+      <UserProvider>
+        <MusicProvider>
           <ReactRouter />
-        </UIProvider>
-      </MusicProvider>
-    </UserProvider>
-  </QueryClientProvider>
+        </MusicProvider>
+      </UserProvider>
+    </QueryClientProvider>
+  </Provider>
 );
