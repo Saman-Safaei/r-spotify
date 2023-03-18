@@ -2,15 +2,16 @@ import { useContext } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { signin } from '../api/users';
 import userSlice from '../contexts/user/user-slice';
-import uiSlice from '../contexts/ui/ui-slice';
+import { useAppDispatch } from '../store';
+import { hideAll } from '../store/uiSlice';
 
 export default function useSignin() {
+  const dispatch = useAppDispatch();
   const userCtx = useContext(userSlice);
-  const uiCtx = useContext(uiSlice);
 
   const successHandler = (variables: { data: any; statusCode: number }) => {
     userCtx.setLogged(true, variables.data.token);
-    uiCtx.hideAll();
+    dispatch(hideAll());
   };
 
   const { mutate, error, ...mutationData } = useMutation({
