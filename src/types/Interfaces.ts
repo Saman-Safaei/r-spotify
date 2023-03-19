@@ -155,3 +155,18 @@ interface SearchParams {
   category: number;
   pageParam: number;
 }
+
+interface SetUserAction {
+  type: string;
+  payload: {
+    username: string;
+    email: string;
+  }
+}
+
+interface SetLoggedAction {
+  type: string;
+  payload: {
+    logged: boolean;
+  }
+}
