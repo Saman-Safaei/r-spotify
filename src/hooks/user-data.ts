@@ -4,17 +4,20 @@ import { AxiosError } from 'axios';
 
 export default function useUserData(
   isLogged: boolean,
-  setUser: (username: string, email: string) => void,
-  logoutUser: () => void
+  onSuccess: (username: string, email: string) => void,
+  onError: () => void
 ) {
-  const { error, isError } = useQuery<{ data: any; statusCode: number }, AxiosError>({
+  const errorHandler = () => {
+    onError();
+    localStorage.removeItem('token');
+  };
+
+  useQuery<{ data: any; statusCode: number }, AxiosError>({
     queryFn: userData,
     refetchInterval: 20000,
     enabled: isLogged,
-    onSuccess: response => setUser(response.data.username, response.data.email),
-    onError: () => logoutUser(),
-    queryKey: ['userInfo']
+    onSuccess: response => onSuccess(response.data.username, response.data.email),
+    onError: errorHandler,
+    queryKey: ['userInfo'],
   });
-
-  return { error, isError };
 }
