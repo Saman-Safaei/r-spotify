@@ -1,16 +1,15 @@
-import { useContext } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { signin } from '../api/users';
-import userSlice from '../contexts/user/user-slice';
 import { useAppDispatch } from '../store';
 import { hideAll } from '../store/uiSlice';
+import { setLogged } from '../store/userSlice';
 
 export default function useSignin() {
   const dispatch = useAppDispatch();
-  const userCtx = useContext(userSlice);
 
   const successHandler = (variables: { data: any; statusCode: number }) => {
-    userCtx.setLogged(true, variables.data.token);
+    dispatch(setLogged(true));
+    localStorage.setItem('token', variables.data.token);
     dispatch(hideAll());
   };
 

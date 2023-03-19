@@ -5,13 +5,13 @@ import SignupModal from '../components/Authentication/SignupModal';
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import MusicBar from '../components/Music/MusicBar';
-import {useAppDispatch, useAppSelector} from '../store';
-import {hideSignin, hideSignup, selectSignIn, selectSignUp} from '../store/uiSlice';
+import { useAppDispatch, useAppSelector } from '../store';
+import { hideSignin, hideSignup, selectSignIn, selectSignUp } from '../store/uiSlice';
 
 function DefaultLayout() {
-  const isSignUpShow = useAppSelector(selectSignUp)
-  const isSignInShow = useAppSelector(selectSignIn)
   const dispatch = useAppDispatch();
+  const isSignUpShow = useAppSelector(selectSignUp);
+  const isSignInShow = useAppSelector(selectSignIn);
 
   return (
     <Fragment>

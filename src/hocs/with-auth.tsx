@@ -1,29 +1,28 @@
 import {
   FunctionComponent,
-  useContext,
   useEffect,
   MouseEvent as ReactMouseEvent,
   ComponentPropsWithoutRef,
 } from 'react';
 import { Link, LinkProps, useNavigate } from 'react-router-dom';
-import userSlice from '../contexts/user/user-slice';
-import { useAppDispatch } from '../store';
+import {useAppDispatch, useAppSelector} from '../store';
 import { showSignin } from '../store/uiSlice';
+import {selectLogged} from "../store/userSlice";
 
 export default function withAuth(Component: FunctionComponent) {
   function AuthWrapper(props: any) {
     const dispatch = useAppDispatch();
-    const userCtx = useContext(userSlice);
+    const isUserLoggedIn = useAppSelector(selectLogged);
     const navigate = useNavigate();
 
     useEffect(() => {
-      if (!userCtx.logged) {
+      if (!isUserLoggedIn) {
         navigate(-1);
         dispatch(showSignin());
       }
-    }, [userCtx.logged, navigate]);
+    }, [dispatch, isUserLoggedIn, navigate]);
 
-    return userCtx.logged ? <Component {...props} /> : <div>Access Denied</div>;
+    return isUserLoggedIn ? <Component {...props} /> : <div>Access Denied</div>;
   }
 
   return AuthWrapper;
@@ -31,10 +30,10 @@ export default function withAuth(Component: FunctionComponent) {
 
 export function AuthLink({ onClick, ...props }: LinkProps) {
   const dispatch = useAppDispatch();
-  const userCtx = useContext(userSlice);
+  const isUserLoggedIn = useAppSelector(selectLogged)
 
   const clickHandler = (ev: ReactMouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    if (!userCtx.logged) {
+    if (!isUserLoggedIn) {
       ev.preventDefault();
       dispatch(showSignin());
     }
@@ -45,10 +44,10 @@ export function AuthLink({ onClick, ...props }: LinkProps) {
 
 export function AuthButton({ onClick, children, ...props }: ComponentPropsWithoutRef<'button'>) {
   const dispatch = useAppDispatch();
-  const userCtx = useContext(userSlice);
+  const isUserLoggedIn = useAppSelector(selectLogged)
 
   const clickHandler = (ev: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {
-    if (!userCtx.logged) {
+    if (!isUserLoggedIn) {
       ev.preventDefault();
       dispatch(showSignin());
     } else {

@@ -1,16 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
 import { signup } from '../api/users';
-import { useContext } from 'react';
-import userSlice from '../contexts/user/user-slice';
 import { useAppDispatch } from '../store';
 import { hideAll } from '../store/uiSlice';
+import { setLogged } from '../store/userSlice';
 
 export default function useSignup() {
   const dispatch = useAppDispatch();
-  const userCtx = useContext(userSlice);
 
   const successHandler = (variables: { data: { token: string } }) => {
-    userCtx.setLogged(true, variables.data.token);
+    dispatch(setLogged(true));
+    localStorage.setItem('token', variables.data.token);
     dispatch(hideAll());
   };
 
