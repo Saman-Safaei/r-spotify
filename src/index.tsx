@@ -6,7 +6,6 @@ import ReactRouter from './router/ReactRouter';
 import MusicProvider from './contexts/music/MusicProvider';
 import './assets/styles/tailwind.css';
 import './assets/styles/transitions.css';
-import { serviceWorker } from './api/development/browser';
 
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLDivElement);
