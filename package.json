@@ -1,5 +1,6 @@
 {
   "name": "r-spotify",
+  "homepage": "/r-spotify",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
