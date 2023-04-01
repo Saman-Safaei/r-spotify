@@ -1,6 +1,5 @@
 import { Link, useRouteError } from 'react-router-dom';
 import errors from '../assets/data/errors.json';
-import { AxiosError } from 'axios';
 
 function ErrorPage() {
   const routeError = useRouteError() as { status: '404' | '500'; statusText: string };

@@ -6,7 +6,7 @@ import Chip from '../components/Pages/Search/Chip';
 
 function Search() {
   const { data, onQueryChange, inputRef, nextPage, hasNextPage, setCategory } = useSearch();
-  const { response, isError } = useCategories();
+  const { response } = useCategories();
 
   return (
     <div className='py-4 px-6'>

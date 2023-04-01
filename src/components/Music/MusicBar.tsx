@@ -13,7 +13,7 @@ function MusicBar() {
     (ev: React.MouseEvent) => {
       musicCtx.setTimePercent((ev.nativeEvent.offsetX / (musicTimelineLength || 1)) * 100);
     },
-    [musicCtx.setTimePercent, musicTimelineLength]
+    [musicCtx, musicTimelineLength]
   );
 
   const musicToggleHandler = useCallback(() => {
