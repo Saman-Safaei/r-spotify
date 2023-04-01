@@ -38,4 +38,4 @@ const routes: RouteObject[] = [
   },
 ]
 
-export default createBrowserRouter(routes, {basename: '/r-spotify'})
+export default createBrowserRouter(routes)
