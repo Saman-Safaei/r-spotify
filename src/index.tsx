@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 if (process.env.NODE_ENV === 'production') {
   const { serviceWorker } = require('./api/development/browser');
-  serviceWorker.start({ quiet: true, onUnhandledRequest: 'bypass' });
+  serviceWorker.start({ quiet: true, onUnhandledRequest: 'bypass', serviceWorker: '/r-spotify/mockServiceWorker.js' });
 }
 
 root.render(
