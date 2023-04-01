@@ -12,11 +12,19 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLDivEleme
 
 if (process.env.NODE_ENV === 'development') {
   const { serviceWorker } = require('./api/development/browser');
-  serviceWorker.start({ quiet: false, onUnhandledRequest: 'warn', serviceWorker: {url: '/r-spotify/mockServiceWorker.js'} });
+  serviceWorker.start({
+    quiet: false,
+    onUnhandledRequest: 'warn',
+    serviceWorker: { url: '/r-spotify/mockServiceWorker.js' },
+  });
 }
 if (process.env.NODE_ENV === 'production') {
   const { serviceWorker } = require('./api/development/browser');
-  serviceWorker.start({ quiet: true, onUnhandledRequest: 'bypass', serviceWorker: {url: '/r-spotify/mockServiceWorker.js'} });
+  serviceWorker.start({
+    quiet: true,
+    onUnhandledRequest: 'bypass',
+    serviceWorker: { url: '/r-spotify/mockServiceWorker.js' },
+  });
 }
 
 root.render(
