@@ -22,6 +22,7 @@ export function usePlaylist(id: string) {
     data: response,
     isSuccess,
     error,
+    refetch,
   } = useQuery<RQueryData<MockPlaylist>, AxiosError>({
     queryFn: () => getById(+id),
     queryKey: ['playlist', +id],
@@ -32,5 +33,5 @@ export function usePlaylist(id: string) {
     throw new Response(null, { status: 404, statusText: 'Playlist Not Found' });
   }
 
-  return { response, isSuccess };
+  return { response, isSuccess, refetch };
 }
