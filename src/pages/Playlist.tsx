@@ -1,21 +1,28 @@
-import {EllipsisHorizontalIcon, HeartIcon, PlayIcon} from '@heroicons/react/24/solid';
+import { EllipsisHorizontalIcon, HeartIcon, PlayIcon } from '@heroicons/react/24/solid';
 import { Fragment, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { usePlaylist } from '../hooks/playlist';
 import withAuth from '../hocs/with-auth';
 import PlaylistMusic from '../components/Pages/Playlist/PlaylistMusic';
 import musicSlice from '../contexts/music/music-slice';
+import { usePlaylistLike } from '../hooks/likes';
 
 function Playlist() {
   const { id } = useParams();
+
+  if (!id || isNaN(+id)) throw new Response(null, { status: 404, statusText: 'Not Found' });
   const musicCtx = useContext(musicSlice);
 
-  const { response } = usePlaylist(id!);
+  const { response, refetch } = usePlaylist(id!);
   const musics = response?.data.musics;
 
   const playMusicsOfPlaylistHandler = () => {
     if (musics) musicCtx.loadPlaylist(musics.map(music => `${process.env.REACT_APP_FILE_URL}/${music.musicFile}`));
   };
+
+  const { mutate, isLoading } = usePlaylistLike(+id, () => {
+    refetch();
+  });
 
   return (
     <Fragment>
@@ -41,14 +48,20 @@ function Playlist() {
       </div>
       <div className='p-4'>
         <div className='flex items-center gap-4 mb-8'>
-          <button onClick={playMusicsOfPlaylistHandler} className='block w-14 h-14 p-4 rounded-full bg-green-500 hover:bg-green-400 text-black'>
+          <button
+            onClick={playMusicsOfPlaylistHandler}
+            className='block w-14 h-14 p-4 rounded-full bg-green-500 hover:bg-green-400 text-black'>
             <PlayIcon className='w-full h-full' />
           </button>
-          <button className="w-10 h-10 ml-auto">
-            <EllipsisHorizontalIcon className="w-full h-full" />
+          <button className='w-10 h-10 ml-auto'>
+            <EllipsisHorizontalIcon className='w-full h-full' />
           </button>
-          <button className="w-10 h-10">
-            <HeartIcon className="w-full h-full text-red-500" />
+          <button className='w-10 h-10' onClick={() => mutate()} disabled={isLoading}>
+            <HeartIcon
+              className={`w-full h-full ${
+                response?.data.like ? 'text-red-500' : 'text-gray-500'
+              } transition-all duration-300`}
+            />
           </button>
         </div>
         <div className='overflow-auto c-scroll'>
