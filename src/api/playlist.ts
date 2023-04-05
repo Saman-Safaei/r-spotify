@@ -11,3 +11,9 @@ export const getById = (id: number): RQueryResponse<MockPlaylist> =>
     data: res.data,
     statusCode: res.status,
   }));
+
+export const toggleLike = ({ id }: { id: number }): RQueryResponse<undefined> =>
+  fetcher.get(`/playlist/setLike?id=${id}`, auth({})).then(res => ({
+    data: undefined,
+    statusCode: res.status,
+  }));
