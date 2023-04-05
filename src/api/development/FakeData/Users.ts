@@ -4,6 +4,7 @@ const users = (): MockUser[] => [
     email: 'xsamansafaeix@gmail.com',
     username: 'SamanDev',
     playlists: [],
+    musics: [],
     password: 'SamanSaman',
   },
   {
@@ -11,6 +12,7 @@ const users = (): MockUser[] => [
     email: 'AliKarimi@gmail.com',
     username: 'AliFake',
     playlists: [],
+    musics: [],
     password: 'AliAliAli',
   },
 ];

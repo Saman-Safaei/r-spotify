@@ -28,6 +28,7 @@ export async function SignUp(req: RestRequest, res: ResponseComposition, ctx: Re
     id: userID,
     email: requestBody.email,
     playlists: [],
+    musics: [],
     username: requestBody.username,
     password: requestBody.password,
   };
