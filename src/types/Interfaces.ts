@@ -61,7 +61,8 @@ interface MockUser {
   email: string;
   username: string;
   password: string;
-  playlists: string[];
+  playlists: number[];
+  musics: number[];
 }
 
 interface GetUserInfoBody {
