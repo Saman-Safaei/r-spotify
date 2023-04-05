@@ -1,5 +1,5 @@
 import { ResponseComposition, RestRequest, RestContext } from 'msw';
-import Database from "../FakeData/Database";
+import Database from '../FakeData/Database';
 
 export async function getPlaylistById(req: RestRequest, res: ResponseComposition, ctx: RestContext) {
   const playlistIdString = req.url.searchParams.get('id');
@@ -33,7 +33,8 @@ export async function getPlaylistBySkip(req: RestRequest, res: ResponseCompositi
   let playlists: MockLimitedPlaylist[] = [];
 
   if (categoryNum >= 0) {
-    playlists = Database.playlists.filter(playlist => playlist.category.id === categoryNum)
+    playlists = Database.playlists
+      .filter(playlist => playlist.category.id === categoryNum)
       .slice(skipNum, skipNum + takeNum)
       .map(playlist => ({
         id: playlist.id,
@@ -55,4 +56,18 @@ export async function getPlaylistBySkip(req: RestRequest, res: ResponseCompositi
   }
 
   return res(ctx.json(playlists));
+}
+
+export async function setLike(req: RestRequest, res: ResponseComposition, ctx: RestContext) {
+  const likeId = req.url.searchParams.get('id');
+
+  if (!likeId || isNaN(+likeId)) return res(ctx.status(400));
+
+  const playlistItem = Database.playlists.find(playlist => playlist.id === +likeId);
+
+  if (!playlistItem) return res(ctx.status(404));
+
+  playlistItem.like = !playlistItem.like;
+
+  return res(ctx.status(200));
 }
