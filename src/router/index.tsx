@@ -1,12 +1,13 @@
-import { createBrowserRouter, RouteObject } from 'react-router-dom'
+import { createBrowserRouter, RouteObject } from 'react-router-dom';
 // Pages
-import DefaultLayout from '../layouts/DefaultLayout'
-import ErrorPage from '../pages/ErrorPage'
-import Genre from '../pages/Genre'
-import Home from '../pages/Home'
-import Playlist from '../pages/Playlist'
-import Search from '../pages/Search'
-import Song from '../pages/Song'
+import DefaultLayout from '../layouts/DefaultLayout';
+import ErrorPage from '../pages/ErrorPage';
+import Genre from '../pages/Genre';
+import Home from '../pages/Home';
+import Playlist from '../pages/Playlist';
+import Search from '../pages/Search';
+import Song from '../pages/Song';
+import YourLibrary from '../pages/YourLibrary';
 
 const routes: RouteObject[] = [
   {
@@ -34,8 +35,12 @@ const routes: RouteObject[] = [
         path: '/song/:id',
         element: <Song />,
       },
+      {
+        path: '/library',
+        element: <YourLibrary />,
+      },
     ],
   },
-]
+];
 
-export default createBrowserRouter(routes)
+export default createBrowserRouter(routes);
