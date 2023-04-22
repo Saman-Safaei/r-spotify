@@ -10,18 +10,15 @@ import './assets/styles/transitions.css';
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLDivElement);
 
-
-  const { serviceWorker } = require('./api/development/browser');
-  serviceWorker.start({ quiet: false, onUnhandledRequest: 'warn' });
-
-
+const { serviceWorker } = require('./api/development/browser');
+serviceWorker.start({ quiet: false, onUnhandledRequest: 'warn' });
 
 root.render(
   <Provider store={store}>
     <QueryClientProvider client={queryClient}>
-        <MusicProvider>
-          <ReactRouter />
-        </MusicProvider>
+      <MusicProvider>
+        <ReactRouter />
+      </MusicProvider>
     </QueryClientProvider>
   </Provider>
 );
