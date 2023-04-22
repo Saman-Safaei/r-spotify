@@ -1,3 +1,5 @@
+![screenshot](./screenshot-1.png)
+
 # Getting Started with R-Spotify
 This Project requires **Node.js** installed on your system.
 
