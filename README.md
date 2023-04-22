@@ -32,3 +32,4 @@ With this commands the R-Spotify will be started.
 - [Typescript](https://www.typescriptlang.org/)
 - [React Transition Group](https://reactcommunity.org/react-transition-group/)
 - [Axios](https://axios-http.com/)
+- [Redux Toolkit](https://redux.js.org/)
