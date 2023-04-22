@@ -11,8 +11,10 @@ const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLDivElement);
 
 
-const { serviceWorker } = require('./api/development/browser');
-serviceWorker.start({ quiet: false, onUnhandledRequest: 'warn' });
+if (process.env.NODE_ENV === 'development') {
+  const { serviceWorker } = require('./api/development/browser');
+  serviceWorker.start({ quiet: false, onUnhandledRequest: 'warn' });
+}
 
 
 root.render(
